@@ -3,14 +3,14 @@
     min-height: 100svh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: #f9fafc;
+    background: #f8f6f1;
 }
 
 .register-image {
     position: relative;
     min-height: 100vh;
     overflow: hidden;
-    background: #101827;
+    background: #211d1a;
 }
 
 .register-background {
@@ -35,7 +35,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(10, 18, 31, 0.28) 0%, rgba(10, 18, 31, 0.12) 35%, rgba(10, 18, 31, 0.4) 65%, rgba(6, 12, 22, 0.84) 100%);
+    background: linear-gradient(180deg, rgba(18, 12, 8, 0.35) 0%, rgba(18, 12, 8, 0.12) 35%, rgba(18, 12, 8, 0.38) 65%, rgba(12, 8, 5, 0.82) 100%);
 }
 
 .register-image-overlay {
