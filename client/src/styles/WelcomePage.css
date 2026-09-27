@@ -43,24 +43,14 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(
-        180deg,
-        rgba(18, 12, 8, 0.42) 0%,
-        rgba(18, 12, 8, 0.12) 35%,
-        rgba(18, 12, 8, 0.35) 65%,
-        rgba(12, 8, 5, 0.72) 100%
-    );
+    background: linear-gradient(180deg, rgba(18, 12, 8, 0.42) 0%, rgba(18, 12, 8, 0.12) 35%, rgba(18, 12, 8, 0.35) 65%, rgba(12, 8, 5, 0.72) 100%);
 }
 
 .welcome-overlay::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        circle at center,
-        transparent 15%,
-        rgba(0, 0, 0, 0.22) 100%
-    );
+    background: radial-gradient(circle at center, transparent 15%, rgba(0, 0, 0, 0.22) 100%);
 }
 
 .welcome-content {
@@ -72,9 +62,7 @@
     background: rgba(24, 18, 14, 0.18);
     border: 1px solid rgba(255, 225, 190, 0.22);
     backdrop-filter: blur(5px);
-    box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.35),
-        inset 0 0 80px rgba(255, 220, 180, 0.025);
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35), inset 0 0 80px rgba(255, 220, 180, 0.025);
     animation: contentReveal 1.2s ease-out forwards;
 }
 
@@ -104,24 +92,12 @@
     height: 66px;
     border: 1px solid transparent;
     transform: rotate(45deg);
-    background: linear-gradient(
-            135deg,
-            #8f1111 0%,
-            #c92716 45%,
-            #f36a21 100%
-        )
-        border-box;
-    -webkit-mask:
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, #8f1111 0%, #c92716 45%, #f36a21 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
-    mask:
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
-    box-shadow:
-        0 0 14px rgba(220, 55, 25, 0.18),
-        0 0 28px rgba(255, 90, 30, 0.08);
+    box-shadow: 0 0 14px rgba(220, 55, 25, 0.18),  0 28px rgba(255, 90, 30, 0.08);
 }
 
 .logo-t,
@@ -130,12 +106,7 @@
     font-family: Georgia, "Times New Roman", serif;
     font-weight: 400;
     line-height: 1;
-    background: linear-gradient(
-        135deg,
-        #fff4df 0%,
-        #f8c27e 45%,
-        #e95a20 100%
-    );
+    background: linear-gradient(135deg, #fff4df 0%, #f8c27e 45%, #e95a20 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -146,9 +117,7 @@
     top: 20px;
     left: 22px;
     font-size: 43px;
-    text-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.35),
-        0 0 10px rgba(255, 105, 40, 0.18);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 105, 40, 0.18);
 }
 
 .logo-m {
@@ -156,9 +125,7 @@
     top: 32px;
     left: 37px;
     font-size: 40px;
-    text-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.35),
-        0 0 10px rgba(255, 105, 40, 0.18);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 105, 40, 0.18);
 }
 
 .welcome-subtitle {
@@ -180,9 +147,7 @@
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.5px;
-    text-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.65),
-        0 10px 30px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.65), 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .hotel-title {
@@ -259,15 +224,8 @@
 }
 
 .mui-loading-progress .MuiLinearProgress-bar {
-    background: linear-gradient(
-        90deg,
-        #c92818 0%,
-        #ed5520 50%,
-        #ff9a52 100%
-    ) !important;
-    box-shadow:
-        0 0 8px rgba(255, 100, 45, 0.45),
-        0 0 16px rgba(255, 100, 45, 0.15);
+    background: linear-gradient(90deg, #c92818 0%, #ed5520 50%, #ff9a52 100%) !important;
+    box-shadow: 0 0 8px rgba(255, 100, 45, 0.45), 0 0 16px rgba(255, 100, 45, 0.15);
 }
 
 .welcome-bottom {
