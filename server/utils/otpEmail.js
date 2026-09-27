@@ -6,7 +6,7 @@ const sendOTPEmail = async (email, otp) => {
     const { data, error } = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL,
         to: [email],
-        subject: "Trio Majestica Hotel | Verification Code",
+        subject: "Hotel Verification Code",
         html: `
             <!DOCTYPE html>
             <html lang="en">
@@ -54,8 +54,10 @@ const sendOTPEmail = async (email, otp) => {
 
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                                 <tr>
-                                                    <td align="center" style="background-color: #f7f8fa; border: 1px solid #e1e5eb; padding: 25px 15px;">
-                                                        <div style="font-size: 34px; font-weight: 700; letter-spacing: 9px; color: #1d293d;">${otp}</div>
+                                                    <td align="center" style="background: linear-gradient(135deg, #ef4444, #f97316, #fb923c); padding: 2px; border-radius: 14px;">
+                                                        <div style="background-color: #fffdf9; border-radius: 12px; padding: 25px 15px;">
+                                                            <div style="font-size: 34px; font-weight: 700; letter-spacing: 9px; color: #1d293d;">${otp}</div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </table>
