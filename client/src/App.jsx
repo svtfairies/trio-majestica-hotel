@@ -9,13 +9,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* AUTH */}
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-
-        <Route path="/dashboard" element={<div>Dashboard</div>} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
