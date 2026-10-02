@@ -7,14 +7,17 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const otpRoutes = require("./routes/otpRoutes");
+const roomRoutes = require("./routes/roomRoutes");
 
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/otp", otpRoutes);
+app.use("/api/rooms", roomRoutes);
 
 app.get("/", (req, res) => {
     res.json({
