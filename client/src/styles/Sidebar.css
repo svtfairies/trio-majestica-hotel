@@ -237,87 +237,105 @@
     display: none;
 }
 
-/* Logout confirmation modal */
 .logout-dialog-paper.MuiDialog-paper {
     overflow: hidden;
-    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
 }
 
 .logout-dialog-title.MuiDialogTitle-root {
     display: flex;
     align-items: center;
-    gap: 11px;
-    padding: 22px 20px 12px;
-    color: #35131a;
-    font-size: 19px;
+    gap: 12px;
+    padding: 26px 24px 14px;
+    color: #0f172a;
+    font-size: 20px;
     font-weight: 700;
+    letter-spacing: -0.4px;
 }
 
 .logout-dialog-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     flex-shrink: 0;
-    color: #541c27;
-    background: #f8e9ec;
-    border-radius: 12px;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
 }
 
 .logout-dialog-icon svg {
-    font-size: 23px;
+    font-size: 25px;
 }
 
 .logout-dialog-close.MuiIconButton-root {
     margin-left: auto;
-    color: #777777;
+    color: #94a3b8;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.logout-dialog-close.MuiIconButton-root:hover {
+    color: #1e40af;
+    background: #eff6ff;
 }
 
 .logout-dialog-message {
-    margin: 5px 0 10px;
-    color: #68616a;
+    margin: 8px 0 12px;
+    color: #64748b;
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .logout-dialog-actions.MuiDialogActions-root {
-    gap: 8px;
-    padding: 12px 20px 20px;
+    gap: 10px;
+    padding: 14px 24px 24px;
 }
 
 .logout-cancel-button.MuiButton-root,
 .logout-confirm-button.MuiButton-root {
-    min-height: 40px;
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-size: 12px;
+    min-height: 42px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .logout-cancel-button.MuiButton-root {
-    color: #541c27;
-    border-color: #d9c4c9;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
 }
 
 .logout-cancel-button.MuiButton-root:hover {
-    background: #fbf4f5;
-    border-color: #541c27;
+    color: #1e293b;
+    background: #f8fafc;
+    border-color: #94a3b8;
 }
 
 .logout-confirm-button.MuiButton-root {
     color: #ffffff;
-    background: #541c27;
-    box-shadow: none;
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
 }
 
 .logout-confirm-button.MuiButton-root:hover {
-    background: #713440;
-    box-shadow: none;
+    background: #1d4ed8;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+    transform: translateY(-1px);
 }
 
-/* Tablet and mobile */
+.logout-confirm-button.MuiButton-root:active {
+    transform: translateY(0);
+}
+
 @media (max-width: 991.98px) {
     .app-sidebar {
         z-index: 1200;
