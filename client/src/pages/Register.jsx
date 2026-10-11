@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Alert, Button, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -9,14 +10,14 @@ const hotelImages = [
     "https://images.unsplash.com/photo-1776361984994-089a9df800f6?auto=format&fit=crop&fm=jpg&q=85&w=2400",
     "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&fm=jpg&q=85&w=2400",
     "https://images.unsplash.com/photo-1775324537644-ec90f40d7d35?auto=format&fit=crop&fm=jpg&q=85&w=2400",
-    "https://images.unsplash.com/photo-1759038086397-2b7b1535da04?auto=format&fit=crop&fm=jpg&q=85&w=2400",
+    "https://images.unsplash.com/photo-1759038086397-2b7b1535da04?auto=format&fit=crop&fm=jpg&q=85&w=2400"
 ];
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").replace(/\/+$/, "");
 
 function Register() {
     const navigate = useNavigate();
-
+    const [searchParams] = useSearchParams();
     const [currentImage, setCurrentImage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState("");
@@ -28,7 +29,7 @@ function Register() {
         lastName: "",
         email: "",
         password: "",
-        confirmPassword: "",
+        confirmPassword: ""
     });
 
     const [errors, setErrors] = useState({
@@ -36,7 +37,7 @@ function Register() {
         lastName: "",
         email: "",
         password: "",
-        confirmPassword: "",
+        confirmPassword: ""
     });
 
     useEffect(() => {
@@ -47,10 +48,7 @@ function Register() {
         return () => clearInterval(imageTimer);
     }, []);
 
-    const validateEmail = (email) => {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
-    };
+    const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const validateForm = () => {
         const newErrors = {
@@ -58,16 +56,11 @@ function Register() {
             lastName: "",
             email: "",
             password: "",
-            confirmPassword: "",
+            confirmPassword: ""
         };
 
-        if (!formData.firstName.trim()) {
-            newErrors.firstName = "First name is required.";
-        }
-
-        if (!formData.lastName.trim()) {
-            newErrors.lastName = "Last name is required.";
-        }
+        if (!formData.firstName.trim()) newErrors.firstName = "First name is required.";
+        if (!formData.lastName.trim()) newErrors.lastName = "Last name is required.";
 
         if (!formData.email.trim()) {
             newErrors.email = "Email address is required.";
@@ -88,115 +81,54 @@ function Register() {
         }
 
         setErrors(newErrors);
-
         return Object.values(newErrors).every((error) => !error);
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (event) => {
+        const { name, value } = event.target;
 
-        setFormData((previous) => ({
-            ...previous,
-            [name]: value,
-        }));
-
-        setErrors((previous) => ({
-            ...previous,
-            [name]: "",
-        }));
-
+        setFormData((previous) => ({ ...previous, [name]: value }));
+        setErrors((previous) => ({ ...previous, [name]: "" }));
         setServerError("");
 
         if (name === "password" && formData.confirmPassword && value !== formData.confirmPassword) {
-            setErrors((previous) => ({
-                ...previous,
-                confirmPassword: "Passwords do not match.",
-            }));
+            setErrors((previous) => ({ ...previous, confirmPassword: "Passwords do not match." }));
         }
 
         if (name === "confirmPassword" && value && formData.password !== value) {
-            setErrors((previous) => ({
-                ...previous,
-                confirmPassword: "Passwords do not match.",
-            }));
+            setErrors((previous) => ({ ...previous, confirmPassword: "Passwords do not match." }));
         }
     };
 
-    const handleBlur = (e) => {
-        const { name, value } = e.target;
+    const handleBlur = (event) => {
+        const { name, value } = event.target;
+        let message = "";
 
-        if (name === "firstName" && !value.trim()) {
-            setErrors((previous) => ({
-                ...previous,
-                firstName: "First name is required.",
-            }));
+        if (["firstName", "lastName"].includes(name) && !value.trim()) {
+            message = `${name === "firstName" ? "First" : "Last"} name is required.`;
+        } else if (name === "email") {
+            if (!value.trim()) message = "Email address is required.";
+            else if (!validateEmail(value.trim())) message = "Please enter a valid email address.";
+        } else if (name === "password") {
+            if (!value) message = "Password is required.";
+            else if (value.length < 6) message = "Password must be at least 6 characters.";
+        } else if (name === "confirmPassword") {
+            if (!value) message = "Please confirm your password.";
+            else if (value !== formData.password) message = "Passwords do not match.";
         }
 
-        if (name === "lastName" && !value.trim()) {
-            setErrors((previous) => ({
-                ...previous,
-                lastName: "Last name is required.",
-            }));
-        }
+        setErrors((previous) => ({ ...previous, [name]: message }));
 
-        if (name === "email") {
-            if (!value.trim()) {
-                setErrors((previous) => ({
-                    ...previous,
-                    email: "Email address is required.",
-                }));
-            } else if (!validateEmail(value.trim())) {
-                setErrors((previous) => ({
-                    ...previous,
-                    email: "Please enter a valid email address.",
-                }));
-            }
-        }
-
-        if (name === "password") {
-            if (!value) {
-                setErrors((previous) => ({
-                    ...previous,
-                    password: "Password is required.",
-                }));
-            } else if (value.length < 6) {
-                setErrors((previous) => ({
-                    ...previous,
-                    password: "Password must be at least 6 characters.",
-                }));
-            }
-
-            if (formData.confirmPassword && value !== formData.confirmPassword) {
-                setErrors((previous) => ({
-                    ...previous,
-                    confirmPassword: "Passwords do not match.",
-                }));
-            }
-        }
-
-        if (name === "confirmPassword") {
-            if (!value) {
-                setErrors((previous) => ({
-                    ...previous,
-                    confirmPassword: "Please confirm your password.",
-                }));
-            } else if (value !== formData.password) {
-                setErrors((previous) => ({
-                    ...previous,
-                    confirmPassword: "Passwords do not match.",
-                }));
-            }
+        if (name === "password" && formData.confirmPassword && value !== formData.confirmPassword) {
+            setErrors((previous) => ({ ...previous, password: message, confirmPassword: "Passwords do not match." }));
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         setServerError("");
 
-        if (!validateForm()) {
-            return;
-        }
+        if (!validateForm()) return;
 
         try {
             setIsLoading(true);
@@ -205,24 +137,35 @@ function Register() {
                 name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
                 email: formData.email.trim().toLowerCase(),
                 password: formData.password,
-                role: "admin",
+                role: "receptionist"
             };
 
             const response = await axios.post(`${API_URL}/auth/register`, registrationData);
 
-            if (response.data?.success) {
+            if (response.data?.success || response.status === 201 || response.status === 200) {
                 navigate("/login", {
+                    replace: true,
                     state: {
                         type: "employee",
+                        role: "receptionist",
                         email: registrationData.email,
-                        registered: true,
-                    },
+                        registered: true
+                    }
                 });
+            } else {
+                setServerError(response.data?.message || "Registration could not be completed.");
             }
         } catch (error) {
-            console.error("Register error:", error);
+            console.error("Registration failed:", error.response?.data || error);
 
-            setServerError(error.response?.data?.message || "Unable to create account. Please try again.");
+            setServerError(
+                error.response?.data?.message ||
+                (error.response?.status === 404
+                    ? "Registration endpoint not found. Check your backend auth routes."
+                    : error.response?.status === 500
+                        ? "Server error while creating the account. Check the backend terminal for details."
+                        : "Unable to create account. Please try again.")
+            );
         } finally {
             setIsLoading(false);
         }
@@ -231,24 +174,12 @@ function Register() {
     return (
         <main className="register-page">
             <section className="register-image">
-                {hotelImages.map((image, index) => (
-                    <div key={image} className={`register-background ${index === currentImage ? "active" : ""}`} style={{ backgroundImage: `url("${image}")` }} />
-                ))}
-
+                {hotelImages.map((image, index) => <div key={image} className={`register-background ${index === currentImage ? "active" : ""}`} style={{ backgroundImage: `url("${image}")` }} />)}
                 <div className="register-image-overlay">
                     <div className="register-brand">
-                        <div className="register-logo">
-                            <span className="register-logo-t">T</span>
-                            <span className="register-logo-m">M</span>
-                        </div>
-
+                        <div className="register-logo"><span className="register-logo-t">T</span><span className="register-logo-m">M</span></div>
                         <h1>Trio Majestica</h1>
-
-                        <div className="register-brand-title">
-                            <span></span>
-                            <p>HOTEL</p>
-                            <span></span>
-                        </div>
+                        <div className="register-brand-title"><span></span><p>HOTEL</p><span></span></div>
                     </div>
                 </div>
             </section>
@@ -257,7 +188,7 @@ function Register() {
                 <div className="register-form-wrapper">
                     <div className="register-form-header">
                         <h2>Create Your Account</h2>
-                        <p className="register-description"> Create your account to access the Trio Majestica Hotel Management System. </p>
+                        <p className="register-description">Create your receptionist account to access the Trio Majestica Hotel Management System.</p>
                     </div>
 
                     {serverError && <Alert severity="error" className="register-server-alert">{serverError}</Alert>}
@@ -268,7 +199,6 @@ function Register() {
                                 <label htmlFor="firstName">FIRST NAME</label>
                                 <TextField fullWidth id="firstName" name="firstName" type="text" placeholder="Enter your first name" value={formData.firstName} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.firstName)} helperText={errors.firstName || ""} variant="standard" autoComplete="given-name" />
                             </div>
-
                             <div className="register-form-group col-12 col-md-6">
                                 <label htmlFor="lastName">LAST NAME</label>
                                 <TextField fullWidth id="lastName" name="lastName" type="text" placeholder="Enter your last name" value={formData.lastName} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.lastName)} helperText={errors.lastName || ""} variant="standard" autoComplete="family-name" />
@@ -277,29 +207,24 @@ function Register() {
 
                         <div className="register-form-group">
                             <label htmlFor="email">EMAIL ADDRESS</label>
-                            <TextField fullWidth id="email" name="email" type="email" placeholder="Enter your Admin email" value={formData.email} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.email)} helperText={errors.email || ""} variant="standard" autoComplete="email" />
+                            <TextField fullWidth id="email" name="email" type="email" placeholder="Enter your email address" value={formData.email} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.email)} helperText={errors.email || ""} variant="standard" autoComplete="email" />
                         </div>
 
                         <div className="register-form-group">
                             <label htmlFor="password">PASSWORD</label>
-                            <TextField fullWidth id="password" name="password" type={showPassword ? "text" : "password"} placeholder="Create a password" value={formData.password} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.password)} helperText={errors.password || ""} variant="standard" autoComplete="new-password" InputProps={{ endAdornment: <IconButton type="button" onClick={() => setShowPassword((previous) => !previous)} edge="end" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton> }} />
+                            <TextField fullWidth id="password" name="password" type={showPassword ? "text" : "password"} placeholder="Create a password" value={formData.password} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.password)} helperText={errors.password || ""} variant="standard" autoComplete="new-password" slotProps={{ input: { endAdornment: <IconButton type="button" onClick={() => setShowPassword((previous) => !previous)} edge="end" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton> }}} />
                         </div>
 
                         <div className="register-form-group">
                             <label htmlFor="confirmPassword">CONFIRM PASSWORD</label>
-                            <TextField fullWidth id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your password" value={formData.confirmPassword} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.confirmPassword)} helperText={errors.confirmPassword || ""} variant="standard" autoComplete="new-password" InputProps={{ endAdornment: <IconButton type="button" onClick={() => setShowConfirmPassword((previous) => !previous)} edge="end" aria-label={showConfirmPassword ? "Hide password" : "Show password"}>{showConfirmPassword ? <VisibilityOff /> : <Visibility />}</IconButton> }} />
+                            <TextField fullWidth id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your password" value={formData.confirmPassword} onChange={handleChange} onBlur={handleBlur} error={Boolean(errors.confirmPassword)} helperText={errors.confirmPassword || ""} variant="standard" autoComplete="new-password" slotProps={{ input: { endAdornment: <IconButton type="button" onClick={() => setShowConfirmPassword((previous) => !previous)} edge="end" aria-label={showConfirmPassword ? "Hide password" : "Show password"}>{showConfirmPassword ? <VisibilityOff /> : <Visibility />}</IconButton> }}} />
                         </div>
 
-                        <Button fullWidth type="submit" variant="contained" disabled={isLoading} className="register-button">{isLoading ? "Creating Admin Account..." : "Create Admin Account"}</Button>
+                        <Button fullWidth type="submit" variant="contained" disabled={isLoading} className="register-button">{isLoading ? "Creating Account..." : "Register"}</Button>
                     </form>
 
                     <div className="register-footer">
-                        <div className="register-footer-divider">
-                            <span></span>
-                            <p>EXISTING ACCOUNT?</p>
-                            <span></span>
-                        </div>
-
+                        <div className="register-footer-divider"><span></span><p>EXISTING ACCOUNT?</p><span></span></div>
                         <p className="register-switch">Already have an account? <Link to="/login">Sign in</Link></p>
                     </div>
                 </div>
