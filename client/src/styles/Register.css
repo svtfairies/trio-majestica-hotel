@@ -328,10 +328,10 @@
     padding: 0 20px !important;
     border: 0 !important;
     border-radius: 3px !important;
-    background: #1d293d !important;
+    background: #2563eb !important;
     color: #ffffff !important;
     font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
     letter-spacing: 1.5px !important;
     text-transform: none !important;
@@ -340,8 +340,8 @@
 }
 
 .register-button:hover {
-    background: #4267a8 !important;
-    box-shadow: 0 10px 22px rgba(29, 41, 61, 0.14) !important;
+    background: #1d4ed8 !important;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25) !important;
     transform: translateY(-1px);
 }
 
@@ -379,7 +379,7 @@
     margin: 0;
     color: #9ba3af;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 2px;
     white-space: nowrap;
