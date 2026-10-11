@@ -256,8 +256,8 @@ function Register() {
             <section className="register-container container-fluid">
                 <div className="register-form-wrapper">
                     <div className="register-form-header">
-                        <h2>Create Admin account</h2>
-                        <p className="register-description">Create the Admin account to manage the Trio Majestica Hotel Management System.</p>
+                        <h2>Create Your Account</h2>
+                        <p className="register-description"> Create your account to access the Trio Majestica Hotel Management System. </p>
                     </div>
 
                     {serverError && <Alert severity="error" className="register-server-alert">{serverError}</Alert>}
