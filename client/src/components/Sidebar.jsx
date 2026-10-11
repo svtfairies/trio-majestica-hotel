@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
@@ -9,7 +8,7 @@ import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -24,9 +23,9 @@ const menuItems = [
     { label: "Guests", path: "/guests", icon: <PeopleAltRoundedIcon /> },
     { label: "Room Management", path: "/rooms", icon: <BedRoundedIcon /> },
     { label: "Billing & Payments", path: "/billing", icon: <ReceiptLongRoundedIcon /> },
+    { label: "Inventory", path: "/inventory", icon: <Inventory2RoundedIcon /> },
     { label: "Reports", path: "/reports", icon: <AssessmentRoundedIcon /> },
-    { label: "Notifications", path: "/notifications", icon: <NotificationsRoundedIcon /> },
-    { label: "Settings", path: "/settings", icon: <SettingsRoundedIcon /> }
+    { label: "Notifications", path: "/notifications", icon: <NotificationsRoundedIcon /> }
 ];
 
 export default function Sidebar({
