@@ -1,3 +1,4 @@
+
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
@@ -12,93 +13,113 @@ const generateToken = (user) => {
     return jwt.sign(
         {
             userId: user._id,
-            role: user.role,
+            role: user.role
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+            expiresIn: process.env.JWT_EXPIRES_IN || "1d"
         }
     );
 };
 
-const sanitizeUser = (user) => {
-    return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        status: user.status,
-        createdAt: user.createdAt,
-    };
-};
+const sanitizeUser = (user) => ({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    status: user.status,
+    createdAt: user.createdAt
+});
 
 const register = async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Name, email, and password are required.",
+                message: "Name, email, and password are required."
+            });
+        }
+
+        if (typeof name !== "string" || typeof email !== "string" || typeof password !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid registration data."
+            });
+        }
+
+        const normalizedName = name.trim().replace(/\s+/g, " ");
+        const normalizedEmail = email.trim().toLowerCase();
+
+        if (!normalizedName) {
+            return res.status(400).json({
+                success: false,
+                message: "Name is required."
+            });
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid email address."
             });
         }
 
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
-                message: "Password must be at least 6 characters.",
+                message: "Password must be at least 6 characters."
             });
         }
 
-        const normalizedEmail = email.trim().toLowerCase();
-        const requestedRole = role === "admin" ? "admin" : "guest";
-
         const existingUser = await User.findOne({
-            email: normalizedEmail,
+            email: normalizedEmail
         });
 
         if (existingUser) {
             return res.status(409).json({
                 success: false,
-                message: "An account with this email already exists.",
+                message: "An account with this email already exists."
             });
-        }
-
-        if (requestedRole === "admin") {
-            const existingAdmin = await User.findOne({
-                role: "admin",
-            });
-
-            if (existingAdmin) {
-                return res.status(409).json({
-                    success: false,
-                    message: "Admin registration is no longer available. Only one Admin account is allowed.",
-                });
-            }
         }
 
         const user = await User.create({
-            name: name.trim(),
+            name: normalizedName,
             email: normalizedEmail,
             password,
-            role: requestedRole,
-            status: "active",
+            role: "receptionist",
+            status: "active"
         });
 
         const token = generateToken(user);
 
         return res.status(201).json({
             success: true,
-            message: "Account created successfully.",
+            message: "Receptionist account created successfully.",
             token,
-            user: sanitizeUser(user),
+            user: sanitizeUser(user)
         });
     } catch (error) {
         console.error("Register error:", error);
 
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists."
+            });
+        }
+
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map((item) => item.message).join(" ")
+            });
+        }
+
         return res.status(500).json({
             success: false,
-            message: "Unable to create account.",
+            message: "Unable to create account. Please check the server configuration."
         });
     }
 };
@@ -110,27 +131,41 @@ const login = async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Email and password are required.",
+                message: "Email and password are required."
+            });
+        }
+
+        if (typeof email !== "string" || typeof password !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid login data."
             });
         }
 
         const normalizedEmail = email.trim().toLowerCase();
 
         const user = await User.findOne({
-            email: normalizedEmail,
+            email: normalizedEmail
         }).select("+password");
 
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid email or password.",
+                message: "Invalid email or password."
+            });
+        }
+
+        if (user.role !== "receptionist") {
+            return res.status(403).json({
+                success: false,
+                message: "Only receptionist accounts can access this system."
             });
         }
 
         if (user.status !== "active") {
             return res.status(403).json({
                 success: false,
-                message: "This account is inactive.",
+                message: "This account is inactive."
             });
         }
 
@@ -139,7 +174,7 @@ const login = async (req, res) => {
         if (!isPasswordCorrect) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid email or password.",
+                message: "Invalid email or password."
             });
         }
 
@@ -149,14 +184,14 @@ const login = async (req, res) => {
             success: true,
             message: "Login successful.",
             token,
-            user: sanitizeUser(user),
+            user: sanitizeUser(user)
         });
     } catch (error) {
         console.error("Login error:", error);
 
         return res.status(500).json({
             success: false,
-            message: "Unable to login.",
+            message: "Unable to login."
         });
     }
 };
@@ -168,40 +203,27 @@ const getMe = async (req, res) => {
         if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "User not found.",
+                message: "User not found."
+            });
+        }
+
+        if (user.role !== "receptionist") {
+            return res.status(403).json({
+                success: false,
+                message: "Only receptionist accounts can access this system."
             });
         }
 
         return res.status(200).json({
             success: true,
-            user: sanitizeUser(user),
+            user: sanitizeUser(user)
         });
     } catch (error) {
         console.error("Get user error:", error);
 
         return res.status(500).json({
             success: false,
-            message: "Unable to retrieve user information.",
-        });
-    }
-};
-
-const checkAdminExists = async (req, res) => {
-    try {
-        const adminExists = await User.exists({
-            role: "admin",
-        });
-
-        return res.status(200).json({
-            success: true,
-            hasAdmin: !!adminExists,
-        });
-    } catch (error) {
-        console.error("Check Admin error:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Failed to check Admin account.",
+            message: "Unable to retrieve user information."
         });
     }
 };
@@ -213,14 +235,21 @@ const resetPassword = async (req, res) => {
         if (!email || !password || !resetToken) {
             return res.status(400).json({
                 success: false,
-                message: "Email, password, and reset token are required.",
+                message: "Email, password, and reset token are required."
+            });
+        }
+
+        if (typeof email !== "string" || typeof password !== "string" || typeof resetToken !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid password reset data."
             });
         }
 
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
-                message: "Password must be at least 6 characters.",
+                message: "Password must be at least 6 characters."
             });
         }
 
@@ -233,13 +262,13 @@ const resetPassword = async (req, res) => {
 
         const user = await User.findOne({
             email: normalizedEmail,
-            passwordResetToken: resetTokenHash,
+            passwordResetToken: resetTokenHash
         }).select("+passwordResetToken +passwordResetExpires");
 
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid or expired password reset token.",
+                message: "Invalid or expired password reset token."
             });
         }
 
@@ -254,7 +283,14 @@ const resetPassword = async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message: "Your password reset session has expired. Please request a new OTP.",
+                message: "Your password reset session has expired. Please request a new OTP."
+            });
+        }
+
+        if (user.role !== "receptionist") {
+            return res.status(403).json({
+                success: false,
+                message: "Only receptionist accounts can reset passwords."
             });
         }
 
@@ -266,14 +302,14 @@ const resetPassword = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Your password has been reset successfully.",
+            message: "Your password has been reset successfully."
         });
     } catch (error) {
         console.error("Reset password error:", error);
 
         return res.status(500).json({
             success: false,
-            message: "Unable to reset your password.",
+            message: "Unable to reset your password."
         });
     }
 };
@@ -282,6 +318,5 @@ module.exports = {
     register,
     login,
     getMe,
-    checkAdminExists,
-    resetPassword,
+    resetPassword
 };
