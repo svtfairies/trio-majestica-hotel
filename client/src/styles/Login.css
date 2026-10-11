@@ -385,24 +385,21 @@
     padding: 0 20px !important;
     border: 0 !important;
     border-radius: 3px !important;
-    background: #1d293d !important;
+    background: #15803d !important;
     color: #ffffff !important;
     font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
-    letter-spacing: 1.5px !important;
+    letter-spacing: 1px !important;
     text-transform: none !important;
     box-shadow: none !important;
     cursor: pointer !important;
-    transition:
-        background 0.25s ease,
-        transform 0.2s ease,
-        box-shadow 0.25s ease !important;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease !important;
 }
 
 .login-button:hover {
-    background: #4267a8 !important;
-    box-shadow: 0 10px 22px rgba(29, 41, 61, 0.14) !important;
+    background: #166534 !important;
+    box-shadow: 0 10px 22px rgba(21, 128, 61, 0.25) !important;
     transform: translateY(-1px);
 }
 
@@ -440,7 +437,7 @@
     margin: 0;
     color: #9ba3af;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 2px;
     white-space: nowrap;
