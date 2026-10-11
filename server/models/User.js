@@ -16,7 +16,10 @@ const userSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
-            match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address."],
+            match: [
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                "Please enter a valid email address.",
+            ],
         },
         password: {
             type: String,
@@ -36,13 +39,18 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ["guest", "admin", "receptionist", "housekeeping"],
-            default: "guest",
+            enum: {
+                values: ["receptionist"],
+                message: "Only the receptionist role is allowed.",
+            },
+            default: "receptionist",
+            required: true,
         },
         status: {
             type: String,
             enum: ["active", "inactive"],
             default: "active",
+            required: true,
         },
     },
     {
