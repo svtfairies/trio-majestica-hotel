@@ -39,12 +39,9 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: {
-                values: ["receptionist"],
-                message: "Only the receptionist role is allowed.",
-            },
+            enum: ["receptionist"],
             default: "receptionist",
-            required: true,
+            required: true
         },
         status: {
             type: String,
