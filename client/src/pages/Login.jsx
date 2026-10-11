@@ -286,17 +286,13 @@ function Login() {
                     <div className="login-footer">
                         <div className="login-footer-divider">
                             <span></span>
-                            <p>ADMIN REGISTRATION</p>
+                            <p>USER REGISTRATION</p>
                             <span></span>
                         </div>
 
-                        {checkingAdmin ? (
-                            <p className="login-register">Checking Admin account...</p>
-                        ) : hasAdmin ? (
-                            <p className="login-register">Admin registration is no longer available. Only one Admin account is allowed.</p>
-                        ) : (
-                            <p className="login-register">No Admin account yet? <Link to="/register?role=admin">Register Admin</Link></p>
-                        )}
+                        <p className="login-register">
+                            Don't have an account yet?{" "} <Link to="/register?role=guest">Register Now</Link>
+                        </p>
                     </div>
                 </div>
             </div>
