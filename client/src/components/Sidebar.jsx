@@ -22,7 +22,7 @@ import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon
 const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").replace(/\/+$/, "");
 
 const menuItems = [
-    { label: "Dashboard", path: "/dashboard", icon: <DashboardRoundedIcon /> },
+    { label: "Dashboard", path: "/receptionist/dashboard", icon: <DashboardRoundedIcon /> },
     { label: "Reservations", path: "/reservations", icon: <CalendarMonthRoundedIcon /> },
     { label: "Guests", path: "/guests", icon: <PeopleAltRoundedIcon /> },
     { label: "Room Management", path: "/rooms", icon: <BedRoundedIcon /> },
@@ -143,10 +143,10 @@ export default function Sidebar({ onLogout }) {
 
                 <nav className="sidebar-navigation" aria-label="Main navigation">
                     {menuItems.map((item) => (
-                        <NavLink key={item.path} to={item.path} onClick={handleNavigation} className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}>
-                            <span className="sidebar-link-icon">{item.icon}</span>
-                            <span className="sidebar-link-label">{item.label}</span>
-                        </NavLink>
+                    <NavLink key={item.path} to={item.path} end onClick={handleNavigation} className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}>
+                        <span className="sidebar-link-icon">{item.icon}</span>
+                        <span className="sidebar-link-label">{item.label}</span>
+                    </NavLink>
                     ))}
                 </nav>
 
