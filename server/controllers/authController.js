@@ -17,7 +17,7 @@ const generateToken = (user) => {
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: process.env.JWT_EXPIRES_IN || "1d"
+            expiresIn: "30m"
         }
     );
 };
@@ -42,7 +42,11 @@ const register = async (req, res) => {
             });
         }
 
-        if (typeof name !== "string" || typeof email !== "string" || typeof password !== "string") {
+        if (
+            typeof name !== "string" ||
+            typeof email !== "string" ||
+            typeof password !== "string"
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid registration data."
@@ -113,7 +117,9 @@ const register = async (req, res) => {
         if (error.name === "ValidationError") {
             return res.status(400).json({
                 success: false,
-                message: Object.values(error.errors).map((item) => item.message).join(" ")
+                message: Object.values(error.errors)
+                    .map((item) => item.message)
+                    .join(" ")
             });
         }
 
@@ -135,7 +141,10 @@ const login = async (req, res) => {
             });
         }
 
-        if (typeof email !== "string" || typeof password !== "string") {
+        if (
+            typeof email !== "string" ||
+            typeof password !== "string"
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid login data."
@@ -214,6 +223,13 @@ const getMe = async (req, res) => {
             });
         }
 
+        if (user.status !== "active") {
+            return res.status(403).json({
+                success: false,
+                message: "This account is inactive."
+            });
+        }
+
         return res.status(200).json({
             success: true,
             user: sanitizeUser(user)
@@ -239,7 +255,11 @@ const resetPassword = async (req, res) => {
             });
         }
 
-        if (typeof email !== "string" || typeof password !== "string" || typeof resetToken !== "string") {
+        if (
+            typeof email !== "string" ||
+            typeof password !== "string" ||
+            typeof resetToken !== "string"
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid password reset data."
@@ -278,7 +298,6 @@ const resetPassword = async (req, res) => {
         ) {
             user.passwordResetToken = null;
             user.passwordResetExpires = null;
-
             await user.save();
 
             return res.status(400).json({
