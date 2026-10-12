@@ -326,7 +326,6 @@ export default function AddRoomModal({
 
     return (
         <>
-            {/* Add Room Modal */}
             <Dialog
                 className="room-edit-modal"
                 open={open}
@@ -381,7 +380,6 @@ export default function AddRoomModal({
                         className="room-modal-form"
                         onSubmit={handleSubmit}
                     >
-                        {/* Basic Information */}
                         <Box className="room-modal-section">
                             {renderSectionTitle("Basic Information")}
 
@@ -460,7 +458,6 @@ export default function AddRoomModal({
                             </Grid>
                         </Box>
 
-                        {/* Room Details */}
                         <Box className="room-modal-section room-details-section">
                             {renderSectionTitle("Room Details")}
 
@@ -515,7 +512,6 @@ export default function AddRoomModal({
                             </Box>
                         </Box>
 
-                        {/* Amenities */}
                         <Box className="room-modal-section">
                             {renderSectionTitle("Amenities")}
 
@@ -526,7 +522,6 @@ export default function AddRoomModal({
                             )}
                         </Box>
 
-                        {/* Inclusions */}
                         <Box className="room-modal-section">
                             {renderSectionTitle("Inclusions")}
 
@@ -561,7 +556,6 @@ export default function AddRoomModal({
                 </DialogActions>
             </Dialog>
 
-            {/* Confirmation Dialog */}
             <Dialog
                 className="room-confirm-dialog"
                 open={confirmOpen}

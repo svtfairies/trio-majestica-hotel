@@ -33,7 +33,6 @@
     white-space: nowrap;
 }
 
-/* Table body */
 .room-table .MuiTableBody-root .MuiTableCell-root {
     padding: 15px 16px;
     color: #51434a;
@@ -54,7 +53,6 @@
     border-bottom: none;
 }
 
-/* Action buttons */
 .room-table .room-edit-button {
     color: #ffffff;
     background: #5c1024;
@@ -403,14 +401,12 @@
   }
 }
 
-/* Mobile: one column */
 @media (max-width: 480px) {
   .room-details-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Responsive spacing */
 @media (max-width: 600px) {
     .room-table-pagination {
         gap: 8px;
@@ -423,8 +419,6 @@
     }
 }
 
-
-/* Delete button in the room table */
 .room-table .room-delete-button {
     color: #8b1e2d;
     background: #ffffff;
@@ -449,7 +443,6 @@
     opacity: 0.5;
 }
 
-/* Permanent delete confirmation button */
 .room-confirm-dialog .room-delete-confirm-button {
     color: #ffffff !important;
     background: #8b1e2d !important;

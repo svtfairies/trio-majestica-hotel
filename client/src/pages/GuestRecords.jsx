@@ -1,9 +1,10 @@
-
 import { useState } from "react";
 import { Button, Box, TextField, Typography } from "@mui/material";
+
 import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
 import GuestTable from "../components/GuestTable";
+import AddGuest from "../components/AddGuest";
 import "../styles/GuestRecords.css";
 
 function GuestRecords() {
@@ -11,21 +12,20 @@ function GuestRecords() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
-    const handleStartDateChange = (value) => {
-        setStartDate(value);
-    };
+    const [openAddModal, setOpenAddModal] = useState(false);
+    const [refreshKey, setRefreshKey] = useState(0);
 
-    const handleEndDateChange = (value) => {
-        setEndDate(value);
-    };
+    const invalidDateRange =
+        startDate && endDate && startDate > endDate;
 
     const clearDateRange = () => {
         setStartDate("");
         setEndDate("");
     };
 
-    const invalidDateRange =
-        startDate && endDate && startDate > endDate;
+    const handleGuestAdded = () => {
+        setRefreshKey((previous) => previous + 1);
+    };
 
     return (
         <div className="main-layout">
@@ -43,7 +43,6 @@ function GuestRecords() {
                     </p>
                 </div>
 
-                {/* Search and Added Date Range */}
                 <div className="search-filter">
                     <div className="searchbar">
                         <SearchBar
@@ -61,7 +60,7 @@ function GuestRecords() {
                             size="small"
                             value={startDate}
                             onChange={(event) =>
-                                handleStartDateChange(event.target.value)
+                                setStartDate(event.target.value)
                             }
                             slotProps={{
                                 inputLabel: { shrink: true },
@@ -78,7 +77,7 @@ function GuestRecords() {
                             size="small"
                             value={endDate}
                             onChange={(event) =>
-                                handleEndDateChange(event.target.value)
+                                setEndDate(event.target.value)
                             }
                             slotProps={{
                                 inputLabel: { shrink: true },
@@ -112,7 +111,7 @@ function GuestRecords() {
                     <Button
                         className="guest-add-button"
                         variant="contained"
-                        // onClick={() => setOpenAddModal(true)}
+                        onClick={() => setOpenAddModal(true)}
                     >
                         + Add Guest
                     </Button>
@@ -120,11 +119,18 @@ function GuestRecords() {
 
                 <div className="guest-records-table-section">
                     <GuestTable
+                        key={refreshKey}
                         searchQuery={searchQuery}
                         startDate={invalidDateRange ? "" : startDate}
                         endDate={invalidDateRange ? "" : endDate}
                     />
                 </div>
+
+                <AddGuest
+                    open={openAddModal}
+                    onClose={() => setOpenAddModal(false)}
+                    onGuestAdded={handleGuestAdded}
+                />
             </div>
         </div>
     );

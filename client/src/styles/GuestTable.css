@@ -1,4 +1,3 @@
-
 .guest-table-wrapper {
     color: #350713;
     background: #ffffff;
@@ -152,7 +151,6 @@
     color: #5c1024;
 }
 
-/* Modal typography */
 .guest-edit-modal,
 .guest-edit-modal *,
 .guest-confirm-dialog,
@@ -160,7 +158,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Modal paper */
 .guest-edit-modal .MuiDialog-paper,
 .guest-confirm-dialog .MuiDialog-paper {
     color: #350713;
@@ -170,7 +167,6 @@
     box-shadow: 0 12px 35px rgba(53, 7, 19, 0.16);
 }
 
-/* Edit Guest header */
 .guest-modal-header {
     display: flex;
     justify-content: space-between;
@@ -202,7 +198,6 @@
     background: #7d1b35;
 }
 
-/* Edit Guest content */
 .guest-modal-content {
     padding: 26px !important;
     background: #f8f6f7;
@@ -244,7 +239,6 @@
     font-size: 13px !important;
 }
 
-/* Edit modal action buttons */
 .guest-modal-actions {
     display: flex;
     gap: 8px;
@@ -283,7 +277,6 @@
     background: #7d1b35 !important;
 }
 
-/* Save, discard, and delete confirmation dialogs */
 .guest-confirm-dialog .MuiDialog-paper {
     border-radius: 12px;
 }
@@ -309,7 +302,6 @@
     border-top: 1px solid #f0e7ea;
 }
 
-/* Matches RoomTable.css confirmation button sizing */
 .guest-confirm-no,
 .guest-confirm-yes {
     padding: 8px 22px !important;
@@ -344,8 +336,6 @@
     color: #fff !important;
     background: #c7a3aa !important;
 }
-
-/* Delete confirmation button */
 .guest-delete-confirm-button {
     padding: 8px 22px !important;
     color: #fff !important;
@@ -365,6 +355,98 @@
 .guest-delete-confirm-button.Mui-disabled {
     color: #fff !important;
     background: #c7a3aa !important;
+}
+
+.add-guest-page {
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(53, 7, 19, 0.06);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.add-guest-page-heading {
+    padding: 22px 26px;
+    color: #f8e9ed;
+    background: #5c1024;
+}
+
+.add-guest-page-heading .MuiTypography-h5 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.add-guest-page-heading .MuiTypography-body1 {
+    margin-top: 5px;
+    color: #d4aab5;
+    font-size: 13px;
+}
+
+.add-guest-page-form {
+    padding: 26px;
+    background: #f8f6f7;
+}
+
+.add-guest-page-actions {
+    justify-content: flex-end;
+    margin: 24px -26px -26px;
+}
+
+.add-guest-page .MuiInputLabel-root {
+    color: #8c7b82;
+    font-size: 13px;
+}
+
+.add-guest-page .MuiInputLabel-root.Mui-focused {
+    color: #5c1024;
+}
+
+.add-guest-page .MuiOutlinedInput-root {
+    color: #350713;
+    background: #ffffff;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.add-guest-page .MuiOutlinedInput-notchedOutline {
+    border-color: #d9b7c1;
+}
+
+.add-guest-page .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #7d1b35;
+}
+
+.add-guest-page .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024;
+}
+
+.add-guest-page .MuiOutlinedInput-root.Mui-error
+.MuiOutlinedInput-notchedOutline {
+    border-color: #a32032;
+}
+
+.add-guest-page .MuiFormHelperText-root.Mui-error {
+    color: #a32032;
+    font-size: 11px;
+}
+
+@media (max-width: 600px) {
+    .add-guest-page-heading {
+        padding: 18px;
+    }
+
+    .add-guest-page-form {
+        padding: 18px;
+    }
+
+    .add-guest-page-actions {
+        margin: 20px -18px -18px;
+        padding: 12px 18px !important;
+    }
 }
 
 @media (max-width: 600px) {

@@ -45,6 +45,12 @@ const ID_TYPES = [
     "Other",
 ];
 
+const STANDARD_ID_TYPES = [
+    "Passport",
+    "National ID",
+    "Driver's License",
+];
+
 const EMPTY_FORM = {
     firstName: "",
     lastName: "",
@@ -53,6 +59,7 @@ const EMPTY_FORM = {
     dateOfBirth: "",
     nationality: "",
     idType: "",
+    customIdType: "",
     idNumber: "",
     notes: "",
 };
@@ -71,8 +78,6 @@ const formatDate = (date) => {
     });
 };
 
-// Convert a date to YYYY-MM-DD using local date components.
-// This avoids timezone shifts when comparing date-only filters.
 const toLocalDateString = (date) => {
     if (!date) return "";
 
@@ -98,7 +103,7 @@ export default function GuestTable({
 
     const [openEditModal, setOpenEditModal] = useState(false);
     const [selectedGuest, setSelectedGuest] = useState(null);
-    const [editForm, setEditForm] = useState(EMPTY_FORM);
+    const [editForm, setEditForm] = useState({ ...EMPTY_FORM });
 
     const [saving, setSaving] = useState(false);
     const [saveError, setSaveError] = useState("");
@@ -116,7 +121,6 @@ export default function GuestTable({
     const [deleting, setDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState("");
 
-    // Fetch guest records
     const fetchGuests = async () => {
         try {
             setLoading(true);
@@ -145,14 +149,12 @@ export default function GuestTable({
         fetchGuests();
     }, []);
 
-    // Search and Added Date range filtering
     const filteredData = useMemo(() => {
         const query = String(searchQuery ?? "")
             .trim()
             .toLowerCase();
 
         return guests.filter((guest) => {
-            // Search filter
             const searchableFields = [
                 guest.firstName,
                 guest.lastName,
@@ -169,7 +171,6 @@ export default function GuestTable({
                     String(field ?? "").toLowerCase().includes(query)
                 );
 
-            // Date range filter based on Added Date
             const addedDateString = toLocalDateString(guest.addedDate);
 
             const matchesStartDate =
@@ -188,9 +189,12 @@ export default function GuestTable({
         });
     }, [guests, searchQuery, startDate, endDate]);
 
-    // Open Edit Guest dialog
     const handleEdit = (guest) => {
         setSelectedGuest(guest);
+
+        const existingIdType = guest.idType ?? "";
+        const isStandardIdType =
+            STANDARD_ID_TYPES.includes(existingIdType);
 
         setEditForm({
             firstName: guest.firstName ?? "",
@@ -201,12 +205,22 @@ export default function GuestTable({
                 ? String(guest.dateOfBirth).slice(0, 10)
                 : "",
             nationality: guest.nationality ?? "",
-            idType: guest.idType ?? "",
+
+            idType:
+                existingIdType === ""
+                    ? ""
+                    : isStandardIdType
+                        ? existingIdType
+                        : "Other",
+
+            customIdType: isStandardIdType ? "" : existingIdType,
+
             idNumber: guest.idNumber ?? "",
             notes: guest.notes ?? "",
         });
 
         setSaveError("");
+        setConfirmDialog({ open: false, action: null });
         setOpenEditModal(true);
     };
 
@@ -219,7 +233,6 @@ export default function GuestTable({
         setSaveError("");
     };
 
-    // Open Save / Cancel confirmation dialog
     const handleConfirmAction = (action) => {
         setSaveError("");
 
@@ -238,13 +251,11 @@ export default function GuestTable({
         });
     };
 
-    // Confirm Save or Discard Changes
     const handleConfirmYes = async () => {
         const action = confirmDialog.action;
 
         if (saving) return;
 
-        // Discard changes
         if (action === "cancel") {
             setConfirmDialog({
                 open: false,
@@ -253,7 +264,7 @@ export default function GuestTable({
 
             setOpenEditModal(false);
             setSelectedGuest(null);
-            setEditForm(EMPTY_FORM);
+            setEditForm({ ...EMPTY_FORM });
             setSaveError("");
 
             return;
@@ -261,7 +272,6 @@ export default function GuestTable({
 
         if (action !== "save") return;
 
-        // Validate required fields
         if (
             !editForm.firstName.trim() ||
             !editForm.lastName.trim() ||
@@ -279,9 +289,8 @@ export default function GuestTable({
             return;
         }
 
-        // Validate ID Type
-        if (!editForm.idType.trim()) {
-            setSaveError("Please specify an ID Type.");
+        if (!editForm.idType) {
+            setSaveError("Please select an ID Type.");
 
             setConfirmDialog({
                 open: false,
@@ -291,7 +300,20 @@ export default function GuestTable({
             return;
         }
 
-        // Validate Date of Birth
+        if (
+            editForm.idType === "Other" &&
+            !editForm.customIdType.trim()
+        ) {
+            setSaveError("Please specify the ID Type.");
+
+            setConfirmDialog({
+                open: false,
+                action: null,
+            });
+
+            return;
+        }
+
         if (
             editForm.dateOfBirth &&
             editForm.dateOfBirth > toLocalDateString(new Date())
@@ -322,9 +344,20 @@ export default function GuestTable({
             setSaveError("");
 
             const payload = {
-                ...editForm,
+                firstName: editForm.firstName.trim(),
+                lastName: editForm.lastName.trim(),
+                email: editForm.email.trim(),
+                phone: editForm.phone.trim(),
                 dateOfBirth: editForm.dateOfBirth || null,
-                idType: editForm.idType || "",
+                nationality: editForm.nationality.trim(),
+
+                idType:
+                    editForm.idType === "Other"
+                        ? editForm.customIdType.trim()
+                        : editForm.idType,
+
+                idNumber: editForm.idNumber.trim(),
+                notes: editForm.notes.trim(),
             };
 
             const response = await axios.put(
@@ -332,7 +365,8 @@ export default function GuestTable({
                 payload
             );
 
-            const updatedGuest = response.data.guest;
+            const updatedGuest =
+                response.data?.guest ?? response.data;
 
             if (!updatedGuest?._id) {
                 throw new Error(
@@ -355,7 +389,7 @@ export default function GuestTable({
 
             setOpenEditModal(false);
             setSelectedGuest(null);
-            setEditForm(EMPTY_FORM);
+            setEditForm({ ...EMPTY_FORM });
             setSaveError("");
         } catch (error) {
             console.error("Failed to save guest:", error);
@@ -375,7 +409,6 @@ export default function GuestTable({
         }
     };
 
-    // Open Delete confirmation
     const handleDeleteClick = (guest) => {
         setDeleteError("");
         setDeleteDialog({ open: true, guest });
@@ -392,7 +425,6 @@ export default function GuestTable({
         setDeleteError("");
     };
 
-    // Confirm Delete Guest
     const handleConfirmDelete = async () => {
         const guest = deleteDialog.guest;
 
@@ -424,7 +456,6 @@ export default function GuestTable({
         }
     };
 
-    // Table columns
     const columns = useMemo(
         () => [
             {
@@ -506,7 +537,6 @@ export default function GuestTable({
         },
     });
 
-    // Reusable Edit Guest form field
     const renderField = ({
         name,
         label,
@@ -529,7 +559,12 @@ export default function GuestTable({
             }
             slotProps={
                 type === "date"
-                    ? { inputLabel: { shrink: true } }
+                    ? {
+                        inputLabel: { shrink: true },
+                        htmlInput: {
+                            max: toLocalDateString(new Date()),
+                        },
+                    }
                     : undefined
             }
         />
@@ -537,7 +572,6 @@ export default function GuestTable({
 
     return (
         <Paper className="guest-table-wrapper" elevation={0}>
-            {/* Loading error */}
             {loadError && (
                 <Box className="guest-table-message">
                     <Typography role="alert">{loadError}</Typography>
@@ -559,7 +593,6 @@ export default function GuestTable({
                 </Box>
             ) : (
                 <>
-                    {/* Guest Records Table */}
                     <TableContainer className="guest-table-container">
                         <Table className="guest-table">
                             <TableHead>
@@ -572,11 +605,11 @@ export default function GuestTable({
                                                         {header.isPlaceholder
                                                             ? null
                                                             : flexRender(
-                                                                  header.column
-                                                                      .columnDef
-                                                                      .header,
-                                                                  header.getContext()
-                                                              )}
+                                                                header.column
+                                                                    .columnDef
+                                                                    .header,
+                                                                header.getContext()
+                                                            )}
                                                     </TableCell>
                                                 )
                                             )}
@@ -621,7 +654,6 @@ export default function GuestTable({
                         </Table>
                     </TableContainer>
 
-                    {/* Pagination */}
                     <Box className="guest-table-pagination">
                         <Button
                             className="guest-pagination-prev"
@@ -650,7 +682,6 @@ export default function GuestTable({
                 </>
             )}
 
-            {/* Edit Guest Dialog */}
             <Dialog
                 className="guest-edit-modal"
                 open={openEditModal}
@@ -745,18 +776,29 @@ export default function GuestTable({
                                 select
                                 fullWidth
                                 label="ID Type"
-                                value={editForm.idType || "unspecified"}
-                                onChange={(event) =>
-                                    handleFormChange(
-                                        "idType",
-                                        event.target.value === "unspecified"
-                                            ? ""
-                                            : event.target.value
-                                    )
-                                }
+                                value={editForm.idType}
+                                onChange={(event) => {
+                                    const value = event.target.value;
+
+                                    setEditForm((previous) => ({
+                                        ...previous,
+                                        idType: value,
+                                        customIdType:
+                                            value === "Other"
+                                                ? previous.customIdType
+                                                : "",
+                                    }));
+
+                                    setSaveError("");
+                                }}
+                                SelectProps={{
+                                    displayEmpty: true,
+                                    renderValue: (selected) =>
+                                        selected || "Choose ID Type",
+                                }}
                             >
-                                <MenuItem value="unspecified">
-                                    Not specified
+                                <MenuItem value="" disabled>
+                                    Choose ID Type
                                 </MenuItem>
 
                                 {ID_TYPES.map((type) => (
@@ -766,6 +808,25 @@ export default function GuestTable({
                                 ))}
                             </TextField>
                         </Grid>
+
+                        {editForm.idType === "Other" && (
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    className="guest-modal-field"
+                                    fullWidth
+                                    required
+                                    label="Specify ID Type"
+                                    placeholder="Enter ID type"
+                                    value={editForm.customIdType}
+                                    onChange={(event) =>
+                                        handleFormChange(
+                                            "customIdType",
+                                            event.target.value
+                                        )
+                                    }
+                                />
+                            </Grid>
+                        )}
 
                         <Grid item xs={12} sm={6}>
                             {renderField({
@@ -806,7 +867,6 @@ export default function GuestTable({
                 </DialogActions>
             </Dialog>
 
-            {/* Save / Cancel Edit Confirmation */}
             <Dialog
                 className="guest-confirm-dialog"
                 open={confirmDialog.open}
@@ -847,13 +907,12 @@ export default function GuestTable({
                         {saving
                             ? "Saving..."
                             : confirmDialog.action === "cancel"
-                              ? "Yes, Discard"
-                              : "Yes, Save"}
+                                ? "Yes, Discard"
+                                : "Yes, Save"}
                     </Button>
                 </DialogActions>
             </Dialog>
 
-            {/* Delete Guest Confirmation */}
             <Dialog
                 className="guest-confirm-dialog"
                 open={deleteDialog.open}
