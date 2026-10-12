@@ -28,10 +28,12 @@
 }
 
 .main-content-title {
+    margin: 0px;
     font-size: 46px;
     font-family: Arial, sans-serif;
     font-weight:bold;
     color: #ffffff;
+    padding: 10px;
 }
 
 .main-content-body {

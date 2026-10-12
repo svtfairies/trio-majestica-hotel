@@ -1,6 +1,3 @@
-
-/* RoomTable.css */
-
 .room-table-wrapper {
     font-family: Arial, sans-serif;
     color: #350713;
@@ -20,7 +17,6 @@
     min-width: 750px;
 }
 
-/* Table header */
 .room-table .MuiTableHead-root {
     background: #f8edf0;
 }
@@ -318,6 +314,13 @@
   line-height: 1.7;
 }
 
+.room-name-cell {
+    color: #350713;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
 .room-confirm-actions {
   gap: 10px;
   padding: 14px 24px 20px !important;
@@ -388,16 +391,12 @@
   width: 100%;
 }
 
-/* Full-width fields */
 .room-details-grid .room-image-url,
 .room-details-grid .room-description,
 .room-details-grid .room-experience {
   grid-column: 1 / -1;
 }
 
-
-
-/* Tablet: two columns for the first six fields */
 @media (max-width: 700px) {
   .room-details-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -67,7 +67,6 @@ export default function RoomTable({
     const [deleting, setDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState("");
 
-    // Fetch rooms
     useEffect(() => {
         const fetchRooms = async () => {
             try {
@@ -87,7 +86,6 @@ export default function RoomTable({
         fetchRooms();
     }, []);
 
-    // Search and status filtering
     const filteredData = useMemo(() => {
         const query = String(searchQuery ?? "")
             .trim()
@@ -118,7 +116,6 @@ export default function RoomTable({
         });
     }, [rooms, searchQuery, selectedFilter]);
 
-    // Edit room
     const handleEdit = (room) => {
         setSelectedRoom(room);
 
@@ -141,7 +138,6 @@ export default function RoomTable({
         setSaveError("");
     };
 
-    // Save confirmation
     const handleConfirmAction = (action) => {
         setSaveError("");
         setConfirmDialog({
@@ -293,7 +289,6 @@ export default function RoomTable({
         }
     };
 
-    // Reusable text field for the edit form
     const renderTextField = ({
         name,
         label,
@@ -339,7 +334,6 @@ export default function RoomTable({
         </Typography>
     );
 
-    // Delete room
     const handleDeleteClick = (room) => {
         setDeleteError("");
 
@@ -393,12 +387,16 @@ export default function RoomTable({
         }
     };
 
-    // Table columns
     const columns = useMemo(
         () => [
             {
                 accessorKey: "name",
                 header: "Room Name",
+                cell: ({getValue}) => (
+                    <Typography className="room-name-cell">
+                        {getValue()}
+                    </Typography>
+                )
             },
             {
                 accessorKey: "bedType",
@@ -450,7 +448,6 @@ export default function RoomTable({
         [deleting]
     );
 
-    // TanStack Table
     const table = useReactTable({
         data: filteredData,
         columns,
@@ -520,7 +517,6 @@ export default function RoomTable({
                 </Table>
             </TableContainer>
 
-            {/* Pagination */}
             <Box className="room-table-pagination">
                 <Button
                     className="pagination-prev"
@@ -547,7 +543,6 @@ export default function RoomTable({
                 </Button>
             </Box>
 
-            {/* Edit Room Modal */}
             <Dialog
                 className="room-edit-modal"
                 open={openEditModal}
@@ -736,7 +731,6 @@ export default function RoomTable({
                                 </Box>
                             </Box>
 
-                            {/* Amenities */}
                             <Box className="room-modal-section">
                                 {renderSectionTitle("Amenities")}
 
@@ -774,7 +768,6 @@ export default function RoomTable({
                                 </Box>
                             </Box>
 
-                            {/* Inclusions */}
                             <Box className="room-modal-section">
                                 {renderSectionTitle("Inclusions")}
 
@@ -836,7 +829,6 @@ export default function RoomTable({
                 </DialogActions>
             </Dialog>
 
-            {/* Save / Discard Confirmation */}
             <Dialog
                 className="room-confirm-dialog"
                 open={confirmDialog.open}
@@ -883,7 +875,6 @@ export default function RoomTable({
                 </DialogActions>
             </Dialog>
 
-            {/* Delete Confirmation */}
             <Dialog
                 className="room-confirm-dialog"
                 open={deleteDialog.open}

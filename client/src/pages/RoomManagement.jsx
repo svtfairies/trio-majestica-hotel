@@ -40,7 +40,6 @@ function RoomManagement() {
                             onChange={setSearchQuery}
                             placeholder="Search room name or bed type"
                         />
-
                     </div>
 
                     <FilterDropdown

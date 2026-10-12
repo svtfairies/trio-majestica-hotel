@@ -1,0 +1,397 @@
+
+.guest-table-wrapper {
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(53, 7, 19, 0.06);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.guest-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.guest-table {
+    min-width: 950px;
+}
+
+.guest-table .MuiTableHead-root {
+    background: #f8edf0;
+}
+
+.guest-table .MuiTableHead-root .MuiTableCell-root {
+    padding: 16px;
+    color: #5c1024;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 2px solid #ead5dc;
+}
+
+.guest-table .MuiTableBody-root .MuiTableCell-root {
+    padding: 15px 16px;
+    color: #51434a;
+    font-size: 13px;
+    border-bottom: 1px solid #f0e7ea;
+}
+
+.guest-table .MuiTableBody-root .MuiTableRow-root:nth-of-type(even),
+.guest-table .MuiTableBody-root .MuiTableRow-root:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.guest-name-cell {
+    color: #350713;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.guest-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.guest-edit-button,
+.guest-delete-button {
+    padding: 6px 13px !important;
+    border-radius: 7px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    white-space: nowrap;
+    box-shadow: none !important;
+}
+
+.guest-edit-button {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.guest-edit-button:hover {
+    background: #7d1b35 !important;
+}
+
+.guest-delete-button {
+    color: #8b1e2d !important;
+    border-color: #d9b7c1 !important;
+}
+
+.guest-delete-button:hover {
+    color: #fff !important;
+    background: #8b1e2d !important;
+    border-color: #8b1e2d !important;
+}
+
+.guest-empty-cell {
+    padding: 35px 16px !important;
+    color: #8c7b82 !important;
+}
+
+.guest-table-pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #f0e7ea;
+}
+
+.guest-table-pagination .MuiTypography-root {
+    color: #5c1024;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.guest-pagination-prev,
+.guest-pagination-next {
+    border-radius: 7px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.guest-pagination-prev {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.guest-pagination-prev:hover {
+    background: #f8edf0 !important;
+}
+
+.guest-pagination-next {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.guest-pagination-next:hover {
+    background: #7d1b35 !important;
+}
+
+.guest-table-loading,
+.guest-table-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 35px 20px;
+    color: #5c1024;
+}
+
+.guest-table-loading .MuiCircularProgress-root {
+    color: #5c1024;
+}
+
+/* Modal typography */
+.guest-edit-modal,
+.guest-edit-modal *,
+.guest-confirm-dialog,
+.guest-confirm-dialog * {
+    font-family: Arial, sans-serif;
+}
+
+/* Modal paper */
+.guest-edit-modal .MuiDialog-paper,
+.guest-confirm-dialog .MuiDialog-paper {
+    color: #350713;
+    background: #fff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(53, 7, 19, 0.16);
+}
+
+/* Edit Guest header */
+.guest-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 26px !important;
+    color: #f8e9ed;
+    background: #5c1024;
+}
+
+.guest-modal-title {
+    color: #f8e9ed;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+}
+
+.guest-modal-subtitle {
+    margin-top: 5px !important;
+    color: #d4aab5;
+    font-size: 13px !important;
+}
+
+.guest-modal-close {
+    color: #f8e9ed !important;
+    border-radius: 7px !important;
+}
+
+.guest-modal-close:hover {
+    background: #7d1b35;
+}
+
+/* Edit Guest content */
+.guest-modal-content {
+    padding: 26px !important;
+    background: #f8f6f7;
+}
+
+.guest-modal-field .MuiInputLabel-root {
+    color: #8c7b82;
+    font-size: 13px;
+}
+
+.guest-modal-field .MuiInputLabel-root.Mui-focused {
+    color: #5c1024;
+}
+
+.guest-modal-field .MuiOutlinedInput-root {
+    color: #350713;
+    background: #fff;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.guest-modal-field .MuiOutlinedInput-notchedOutline {
+    border-color: #d9b7c1;
+}
+
+.guest-modal-field .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #7d1b35;
+}
+
+.guest-modal-field .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024;
+}
+
+.guest-save-error {
+    margin-bottom: 16px !important;
+    color: #a32032 !important;
+    font-size: 13px !important;
+}
+
+/* Edit modal action buttons */
+.guest-modal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px 26px !important;
+    background: #fff;
+    border-top: 1px solid #f0e7ea;
+}
+
+.guest-modal-cancel,
+.guest-modal-save {
+    padding: 8px 18px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.guest-modal-cancel {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.guest-modal-cancel:hover {
+    background: #f8edf0 !important;
+    border-color: #7d1b35 !important;
+}
+
+.guest-modal-save {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.guest-modal-save:hover {
+    background: #7d1b35 !important;
+}
+
+/* Save, discard, and delete confirmation dialogs */
+.guest-confirm-dialog .MuiDialog-paper {
+    border-radius: 12px;
+}
+
+.guest-confirm-title {
+    padding: 22px 24px 10px !important;
+    color: #5c1024;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+.guest-confirm-content {
+    padding: 8px 24px 20px !important;
+    color: #51434a;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.guest-confirm-actions {
+    display: flex;
+    gap: 10px;
+    padding: 14px 24px 20px !important;
+    border-top: 1px solid #f0e7ea;
+}
+
+/* Matches RoomTable.css confirmation button sizing */
+.guest-confirm-no,
+.guest-confirm-yes {
+    padding: 8px 22px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.guest-confirm-no {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.guest-confirm-no:hover {
+    background: #f8edf0 !important;
+    border-color: #7d1b35 !important;
+}
+
+.guest-confirm-yes {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.guest-confirm-yes:hover {
+    background: #7d1b35 !important;
+}
+
+.guest-confirm-yes.Mui-disabled {
+    color: #fff !important;
+    background: #c7a3aa !important;
+}
+
+/* Delete confirmation button */
+.guest-delete-confirm-button {
+    padding: 8px 22px !important;
+    color: #fff !important;
+    background: #8b1e2d !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.guest-delete-confirm-button:hover {
+    background: #6f1522 !important;
+}
+
+.guest-delete-confirm-button.Mui-disabled {
+    color: #fff !important;
+    background: #c7a3aa !important;
+}
+
+@media (max-width: 600px) {
+    .guest-modal-header {
+        padding: 18px !important;
+    }
+
+    .guest-modal-content {
+        padding: 18px !important;
+    }
+
+    .guest-modal-actions {
+        padding: 12px 18px !important;
+    }
+
+    .guest-confirm-actions {
+        gap: 8px;
+        padding: 12px 18px !important;
+    }
+
+    .guest-table-pagination {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .guest-table-pagination .MuiButton-root {
+        min-width: 55px;
+        padding: 6px 10px;
+    }
+}
