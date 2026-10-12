@@ -1,0 +1,474 @@
+
+/* RoomTable.css */
+
+.room-table-wrapper {
+    font-family: Arial, sans-serif;
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(53, 7, 19, 0.06);
+    overflow: hidden;
+}
+
+.room-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.room-table {
+    min-width: 750px;
+}
+
+/* Table header */
+.room-table .MuiTableHead-root {
+    background: #f8edf0;
+}
+
+.room-table .MuiTableHead-root .MuiTableCell-root {
+    padding: 16px;
+    color: #5c1024;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ead5dc;
+    white-space: nowrap;
+}
+
+/* Table body */
+.room-table .MuiTableBody-root .MuiTableCell-root {
+    padding: 15px 16px;
+    color: #51434a;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    border-bottom: 1px solid #f0e7ea;
+}
+
+.room-table .MuiTableBody-root .MuiTableRow-root {
+    transition: background-color 0.2s ease;
+}
+
+.room-table .MuiTableBody-root .MuiTableRow-root:hover {
+    background-color: #fcf6f8;
+}
+
+.room-table .MuiTableBody-root .MuiTableRow-root:last-child .MuiTableCell-root {
+    border-bottom: none;
+}
+
+/* Action buttons */
+.room-table .room-edit-button {
+    color: #ffffff;
+    background: #5c1024;
+    border-radius: 7px;
+    padding: 6px 14px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+}
+
+.room-table .room-edit-button:hover {
+    background: #7d1b35;
+    box-shadow: 0 3px 8px rgba(92, 16, 36, 0.18);
+}
+
+.room-table .room-empty-cell {
+    padding: 35px 16px;
+    color: #8c7b82;
+    font-size: 13px;
+    text-align: center;
+}
+
+.room-table-pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #f0e7ea;
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.room-table-pagination .MuiTypography-root {
+    color: #5c1024;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.room-table-pagination .pagination-prev {
+    color: #5c1024;
+    border-color: #d9b7c1;
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.room-table-pagination .pagination-prev:hover {
+    background: #f8edf0;
+    border-color: #7d1b35;
+}
+
+.room-table-pagination .pagination-next {
+    color: #ffffff;
+    background: #5c1024;
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+}
+
+.room-table-pagination .pagination-next:hover {
+    background: #7d1b35;
+}
+
+.room-table-pagination .Mui-disabled {
+    opacity: 0.4;
+}
+
+/* Edit Room modal */
+.room-edit-modal,
+.room-edit-modal * {
+    font-family: Arial, sans-serif;
+}
+
+.room-edit-modal .MuiDialog-paper {
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(53, 7, 19, 0.16);
+}
+
+.room-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 26px;
+    color: #f8e9ed;
+    background: #5c1024;
+    border-bottom: 1px solid #7d1b35;
+}
+
+.room-modal-title {
+    color: #f8e9ed;
+    font-size: 25px !important;
+    font-weight: 700 !important;
+}
+
+.room-modal-subtitle {
+    margin-top: 5px !important;
+    color: #d4aab5;
+    font-size: 16px !important;
+}
+
+.room-modal-close {
+    color: #f8e9ed !important;
+    border-radius: 7px !important;
+}
+
+.room-modal-close:hover {
+    background: #7d1b35;
+}
+
+.room-modal-content {
+    padding: 26px !important;
+    color: #350713;
+    background: #f8f6f7;
+}
+
+.room-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 8px;
+}
+
+.room-modal-section-title {
+    margin-bottom: 16px !important;
+    padding-bottom: 9px;
+    color: #5c1024;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid #ead5dc;
+}
+
+.room-modal-field .MuiInputLabel-root {
+    color: #8c7b82;
+    font-size: 13px;
+}
+
+.room-modal-field .MuiInputLabel-root.Mui-focused {
+    color: #5c1024;
+}
+
+.room-modal-field .MuiOutlinedInput-root {
+    color: #350713;
+    background: #ffffff;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.room-modal-field .MuiOutlinedInput-notchedOutline {
+    border-color: #d9b7c1;
+}
+
+.room-modal-field .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #7d1b35;
+}
+
+.room-modal-field .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024;
+}
+
+.room-modal-field .MuiFormHelperText-root {
+    color: #8c7b82;
+    font-size: 11px;
+}
+
+.room-modal-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.room-modal-chip {
+    color: #5c1024 !important;
+    background: #f8edf0 !important;
+    border: 1px solid #ead5dc;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    font-weight: 600;
+}
+
+.room-modal-actions {
+    gap: 8px;
+    padding: 16px 26px !important;
+    background: #ffffff;
+    border-top: 1px solid #f0e7ea;
+}
+
+.room-modal-cancel,
+.room-modal-save {
+    padding: 8px 18px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.room-modal-cancel {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.room-modal-cancel:hover {
+    background: #f8edf0;
+    border-color: #7d1b35 !important;
+}
+
+.room-modal-save {
+    color: #ffffff !important;
+    background: #5c1024 !important;
+}
+
+.room-modal-save:hover {
+    background: #7d1b35 !important;
+}
+
+.room-confirm-dialog,
+.room-confirm-dialog * {
+  font-family: Arial, sans-serif;
+}
+
+.room-confirm-dialog .MuiDialog-paper {
+  color: #350713;
+  background: #fff;
+  border: 1px solid #eadde1;
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(53, 7, 19, 0.16);
+}
+
+.room-confirm-title {
+  padding: 22px 24px 10px !important;
+  color: #5c1024;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.room-confirm-content {
+  padding: 8px 24px 20px !important;
+  color: #51434a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.room-confirm-actions {
+  gap: 10px;
+  padding: 14px 24px 20px !important;
+  border-top: 1px solid #f0e7ea;
+}
+
+.room-confirm-no,
+.room-confirm-yes {
+  padding: 8px 22px !important;
+  border-radius: 7px !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+}
+
+.room-confirm-no {
+  color: #5c1024 !important;
+  border-color: #d9b7c1 !important;
+}
+
+.room-confirm-no:hover {
+  background: #f8edf0;
+  border-color: #7d1b35 !important;
+}
+
+.room-confirm-yes {
+  color: #fff !important;
+  background: #5c1024 !important;
+}
+
+.room-confirm-yes:hover {
+  background: #7d1b35 !important;
+}
+
+@media (max-width: 600px) {
+    .room-modal-header {
+        padding: 18px;
+    }
+
+    .room-modal-content {
+        padding: 18px !important;
+    }
+
+    .room-modal-actions {
+        padding: 12px 18px !important;
+    }
+
+    .room-modal-title {
+        font-size: 17px !important;
+    }
+}
+
+.room-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  width: 100%;
+}
+
+.room-details-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.room-details-field .room-modal-field {
+  width: 100%;
+}
+
+/* Full-width fields */
+.room-details-grid .room-image-url,
+.room-details-grid .room-description,
+.room-details-grid .room-experience {
+  grid-column: 1 / -1;
+}
+
+
+
+/* Tablet: two columns for the first six fields */
+@media (max-width: 700px) {
+  .room-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: one column */
+@media (max-width: 480px) {
+  .room-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive spacing */
+@media (max-width: 600px) {
+    .room-table-pagination {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .room-table-pagination .MuiButton-root {
+        min-width: 55px;
+        padding: 6px 10px;
+    }
+}
+
+
+/* Delete button in the room table */
+.room-table .room-delete-button {
+    color: #8b1e2d;
+    background: #ffffff;
+    border: 1px solid #d9b7c1;
+    border-radius: 7px;
+    padding: 6px 14px;
+    margin-left: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+}
+
+.room-table .room-delete-button:hover {
+    color: #ffffff;
+    background: #8b1e2d;
+    border-color: #8b1e2d;
+}
+
+.room-table .room-delete-button.Mui-disabled {
+    opacity: 0.5;
+}
+
+/* Permanent delete confirmation button */
+.room-confirm-dialog .room-delete-confirm-button {
+    color: #ffffff !important;
+    background: #8b1e2d !important;
+    padding: 8px 22px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.room-confirm-dialog .room-delete-confirm-button:hover {
+    background: #6f1522 !important;
+}
+
+.room-confirm-dialog .room-delete-confirm-button.Mui-disabled {
+    color: #ffffff !important;
+    background: #c7a3aa !important;
+}
+

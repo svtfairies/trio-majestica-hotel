@@ -30,25 +30,60 @@ const createRoom = async (req, res) => {
         const {
             name,
             description,
+            image,
             bedType,
             capacity,
+            roomSize,
+            floor,
+            view,
+            bathroom,
+            idealFor,
+            highlight,
+            experience,
+            amenities,
+            inclusions,
             totalRooms,
+            pricePerNight,
             status
         } = req.body;
 
         if (
-            !name ||
-            !description ||
-            !bedType ||
-            !capacity ||
-            totalRooms === undefined
+            !name?.trim() ||
+            !description?.trim() ||
+            !image?.trim() ||
+            !bedType?.trim() ||
+            !String(capacity ?? "").trim() ||
+            !roomSize?.trim() ||
+            !floor?.trim() ||
+            !view?.trim() ||
+            !bathroom?.trim() ||
+            !idealFor?.trim() ||
+            !highlight?.trim() ||
+            !experience?.trim() ||
+            totalRooms === undefined ||
+            totalRooms === "" ||
+            pricePerNight === undefined ||
+            pricePerNight === ""
         ) {
             return res.status(400).json({
                 message: "Please complete all required fields."
             });
         }
 
-        const existingRoom = await Room.findOne({ name });
+        if (
+            !Number.isFinite(Number(totalRooms)) ||
+            Number(totalRooms) < 0 ||
+            !Number.isFinite(Number(pricePerNight)) ||
+            Number(pricePerNight) < 0
+        ) {
+            return res.status(400).json({
+                message: "Total rooms and price per night must be valid non-negative numbers."
+            });
+        }
+
+        const existingRoom = await Room.findOne({
+            name: name.trim()
+        });
 
         if (existingRoom) {
             return res.status(409).json({
@@ -57,21 +92,47 @@ const createRoom = async (req, res) => {
         }
 
         const room = await Room.create({
-            name,
-            description,
-            bedType,
-            capacity,
-            totalRooms,
-            status
+            name: name.trim(),
+            description: description.trim(),
+            image: image.trim(),
+            bedType: bedType.trim(),
+            capacity: String(capacity).trim(),
+            roomSize: roomSize.trim(),
+            floor: floor.trim(),
+            view: view.trim(),
+            bathroom: bathroom.trim(),
+            idealFor: idealFor.trim(),
+            highlight: highlight.trim(),
+            experience: experience.trim(),
+            amenities: Array.isArray(amenities) ? amenities : [],
+            inclusions: Array.isArray(inclusions) ? inclusions : [],
+            totalRooms: Number(totalRooms),
+            pricePerNight: Number(pricePerNight),
+            status: status || "Available"
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "Room created successfully.",
             room
         });
+
     } catch (error) {
         console.error("Create room error:", error);
-        res.status(500).json({
+
+        if (error.code === 11000) {
+            return res.status(409).json({
+                message: "Room type already exists."
+            });
+        }
+
+        if (error.name === "ValidationError" || error.name === "CastError") {
+            return res.status(400).json({
+                message: "Invalid room information.",
+                error: error.message
+            });
+        }
+
+        return res.status(500).json({
             message: "Failed to create room."
         });
     }
