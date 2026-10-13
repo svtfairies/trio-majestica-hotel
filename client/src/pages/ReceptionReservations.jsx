@@ -282,6 +282,7 @@ export default function ReceptionReservations() {
             cell: ({ row }) => (
             <div className="rr-row-actions">
                 <Tooltip title="View reservation"><IconButton size="small" className="rr-view-button" onClick={() => setSelectedBooking(row.original)} aria-label={`View reservation for ${getGuestName(row.original)}`}><VisibilityRoundedIcon fontSize="small" /></IconButton></Tooltip>
+                <Tooltip title="Edit Reservation"><IconButton size="small" className="rr-edit-button" onClick={() => navigate(`/receptionist/reservations/${getId(row.original)}/edit`)} aria-label="Edit Reservation"><EditRoundedIcon fontSize="small" /></IconButton></Tooltip>
                 <Tooltip title="Delete reservation"><IconButton size="small" className="rr-delete-button" onClick={() => setDeleteBooking(row.original)} aria-label={`Delete reservation for ${getGuestName(row.original)}`}><DeleteRoundedIcon fontSize="small" /></IconButton></Tooltip>
             </div>
             )
