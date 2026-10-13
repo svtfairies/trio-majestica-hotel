@@ -1,0 +1,1137 @@
+.rf-layout {
+    min-height: 100vh;
+    width: 100%;
+    background: #f8f5f6;
+    color: #35252a;
+}
+
+.rf-page {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 34px 38px 48px;
+}
+
+.rf-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.rf-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.rf-eyebrow {
+    color: #8b1e3f;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.rf-heading h1 {
+    margin: 0;
+    color: #4b0d20;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.rf-heading p {
+    max-width: 680px;
+    margin: 0;
+    color: #927780;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.rf-back-button.MuiButton-root {
+    min-height: 43px;
+    padding: 9px 16px;
+    border-color: #e4cbd3;
+    border-radius: 10px;
+    color: #7b1735;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.rf-back-button.MuiButton-root:hover {
+    border-color: #7b1735;
+    background: #f9edf1;
+}
+
+.rf-alert {
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.rf-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+    gap: 24px;
+}
+
+.rf-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-width: 0;
+}
+
+.rf-form-card.MuiPaper-root {
+    padding: 26px;
+    border: 1px solid #ead9de;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 6px 24px rgba(75, 13, 32, 0.035);
+}
+
+.rf-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0e4e7;
+}
+
+.rf-card-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 47px;
+    height: 47px;
+    border: 1px solid #f0dce3;
+    border-radius: 14px;
+    background: #f9edf1;
+    color: #7b1735;
+}
+
+.rf-card-icon svg {
+    font-size: 24px;
+}
+
+.rf-card-heading h2 {
+    margin: 0 0 5px;
+    color: #4b0d20;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.rf-card-heading p {
+    margin: 0;
+    color: #927780;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.rf-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 21px 18px;
+}
+
+.rf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.rf-field label {
+    color: #513640;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.rf-required {
+    color: #dc2626;
+    font-weight: 900;
+}
+
+.rf-field-full {
+    grid-column: 1 / -1;
+}
+
+.rf-field .MuiOutlinedInput-root {
+    border-radius: 9px;
+    background: #fff;
+    font-size: 13px;
+}
+
+.rf-field .MuiOutlinedInput-notchedOutline {
+    border-color: #e5d4d9;
+}
+
+.rf-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #c99eac;
+}
+
+.rf-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-width: 1px;
+    border-color: #8b1e3f;
+}
+
+.rf-field .MuiInputBase-input {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.rf-field .MuiInputBase-input::placeholder {
+    color: #b5a2a8;
+    opacity: 1;
+}
+
+.rf-field .MuiInputBase-input.MuiInputBase-inputMultiline {
+    padding: 0;
+}
+
+.rf-date-range {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 15px 16px;
+    border: 1px solid #edd6df;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #fcf4f7, #fff);
+    color: #7b1735;
+}
+
+.rf-date-range > svg {
+    flex-shrink: 0;
+    font-size: 25px;
+}
+
+.rf-date-range div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.rf-date-range strong {
+    color: #4b0d20;
+    font-size: 13px;
+}
+
+.rf-date-range span {
+    color: #927780;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.rf-room-section {
+    margin-top: 28px;
+    padding-top: 23px;
+    border-top: 1px solid #f0e4e7;
+}
+
+.rf-room-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.rf-room-heading h3 {
+    margin: 0 0 5px;
+    color: #4b0d20;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.rf-room-heading p {
+    margin: 0;
+    color: #927780;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.rf-room-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.rf-room-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+    padding: 17px;
+    border: 1px solid #ead9de;
+    border-radius: 13px;
+    background: #fff;
+    color: #35252a;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rf-room-option:hover {
+    border-color: #bb7d91;
+    box-shadow: 0 5px 16px rgba(75, 13, 32, 0.06);
+}
+
+.rf-room-option:hover .rf-room-image {
+    transform: scale(1.025);
+}
+
+.rf-room-option.selected {
+    border: 1.5px solid #7b1735;
+    background: #fcf4f7;
+    box-shadow: 0 0 0 2px rgba(123, 23, 53, 0.06);
+}
+
+.rf-room-option-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.rf-room-option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: #f9edf1;
+    color: #7b1735;
+}
+
+.rf-room-option-icon svg {
+    font-size: 21px;
+}
+
+.rf-room-select-indicator {
+    padding: 5px 8px;
+    border-radius: 20px;
+    background: #f3edef;
+    color: #84616d;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.rf-room-option.selected .rf-room-select-indicator {
+    background: #7b1735;
+    color: #fff;
+}
+
+.rf-room-option > strong {
+    color: #4b0d20;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.rf-room-number {
+    color: #927780;
+    font-size: 12px;
+}
+
+.rf-room-rate {
+    margin-top: 4px;
+    color: #7b1735;
+    font-size: 17px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.rf-room-rate small {
+    color: #927780;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.rf-empty-rooms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    padding: 28px 16px;
+    border: 1px dashed #dfc6cf;
+    border-radius: 12px;
+    background: #fcf8f9;
+    text-align: center;
+}
+
+.rf-empty-rooms > svg {
+    color: #a56b7e;
+    font-size: 31px;
+}
+
+.rf-empty-rooms strong {
+    color: #4b0d20;
+    font-size: 13px;
+}
+
+.rf-empty-rooms span {
+    max-width: 300px;
+    color: #927780;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.rf-selected-room {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px;
+    border: 1px solid #e5c8d2;
+    border-radius: 11px;
+    background: #fdf7f9;
+    color: #7b1735;
+}
+
+.rf-selected-room > svg {
+    flex-shrink: 0;
+    font-size: 23px;
+}
+
+.rf-selected-room div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.rf-selected-room strong {
+    color: #4b0d20;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.rf-selected-room span {
+    color: #927780;
+    font-size: 11px;
+}
+
+.rf-summary-column {
+    min-width: 0;
+}
+
+.rf-payment-summary.MuiPaper-root {
+    position: sticky;
+    top: 24px;
+    padding: 23px;
+    border: 1px solid #ead9de;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(75, 13, 32, 0.05);
+}
+
+.rf-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 23px;
+}
+
+.rf-summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: #7b1735;
+    color: #fff;
+}
+
+.rf-summary-icon svg {
+    font-size: 23px;
+}
+
+.rf-summary-header h2 {
+    margin: 0 0 5px;
+    color: #4b0d20;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.rf-summary-header p {
+    margin: 0;
+    color: #927780;
+    font-size: 11px;
+}
+
+.rf-summary-room {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 19px;
+    padding: 14px;
+    border: 1px solid #f0e4e7;
+    border-radius: 12px;
+    background: #fcf8f9;
+}
+
+.rf-summary-room-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: #f5e4ea;
+    color: #7b1735;
+}
+
+.rf-summary-room-icon svg {
+    font-size: 21px;
+}
+
+.rf-summary-room div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.rf-summary-room strong {
+    color: #4b0d20;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.rf-summary-room span:not(.rf-summary-room-icon) {
+    color: #927780;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.rf-summary-dates {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    margin-bottom: 21px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0e4e7;
+}
+
+.rf-summary-dates div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.rf-summary-dates span {
+    color: #a08790;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.rf-summary-dates strong {
+    color: #4b0d20;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.rf-summary-line {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: #80646e;
+    font-size: 12px;
+}
+
+.rf-summary-line strong {
+    color: #4b0d20;
+    font-size: 12px;
+    font-weight: 750;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.rf-summary-divider {
+    height: 1px;
+    margin: 21px 0;
+    background: #ead9de;
+}
+
+.rf-summary-total {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 19px;
+}
+
+.rf-summary-total div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.rf-summary-total span {
+    color: #4b0d20;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.rf-summary-total small {
+    color: #927780;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.rf-summary-total > strong {
+    color: #7b1735;
+    font-size: 29px;
+    font-weight: 900;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.rf-summary-note {
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #f0e4e7;
+    border-radius: 9px;
+    background: #fcf8f9;
+    color: #927780;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.rf-submit-button.MuiButton-root {
+    min-height: 48px;
+    border-radius: 10px;
+    background: #7b1735;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: none;
+    box-shadow: 0 5px 14px rgba(123, 23, 53, 0.17);
+}
+
+.rf-submit-button.MuiButton-root:hover {
+    background: #5e1028;
+    box-shadow: 0 6px 17px rgba(123, 23, 53, 0.23);
+}
+
+.rf-submit-button.MuiButton-root.Mui-disabled {
+    background: #d5b9c2;
+    color: #fff;
+    box-shadow: none;
+}
+
+.rf-required-note {
+    margin: 14px 0 0;
+    color: #927780;
+    font-size: 10px;
+    text-align: center;
+}
+
+.rf-field .MuiFormHelperText-root {
+    margin-left: 2px;
+    color: #dc2626;
+    font-size: 11px;
+}
+
+.rf-field-error {
+    display: block;
+    margin-top: 5px;
+    color: #dc2626;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.rf-room-image {
+    display: block;
+    width: 100%;
+    height: 185px;
+    border-radius: 9px;
+    object-fit: cover;
+    background: #f8eef1;
+    transition: transform 0.3s ease;
+}
+
+.rf-room-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 185px;
+    border-radius: 9px;
+    background: #f8eef1;
+    color: #7b1735;
+}
+
+.rf-room-image-placeholder svg {
+    font-size: 44px;
+}
+
+.rf-room-option {
+    overflow: hidden;
+}
+
+.rf-room-option-top {
+    flex-wrap: wrap;
+}
+
+.rf-room-available {
+    color: #28764b;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.rf-room-capacity {
+    color: #927780;
+    font-size: 10px;
+}
+
+.rf-room-selected-count {
+    padding: 6px 9px;
+    border-radius: 7px;
+    background: #f9edf1;
+    color: #7b1735;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.rf-service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.rf-service-option {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #ead9de;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.rf-service-option.selected {
+    border-color: #7b1735;
+    background: #fcf4f7;
+}
+
+.rf-service-option .MuiFormControlLabel-root {
+    width: 100%;
+    margin: 0;
+    align-items: flex-start;
+}
+
+.rf-service-option .MuiCheckbox-root {
+    padding: 3px 8px 3px 0;
+}
+
+.rf-service-label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 7px;
+}
+
+.rf-service-label strong {
+    color: #4b0d20;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.rf-service-label small {
+    color: #927780;
+    font-size: 11px;
+}
+
+.rf-extra-notes {
+    margin-top: 22px;
+}
+
+.rf-summary-service {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: -7px 0 13px;
+    padding-left: 10px;
+    color: #927780;
+    font-size: 10px;
+}
+
+.rf-summary-service strong {
+    color: #4b0d20;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.rf-room-number-summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+    border: 1px solid #ead9de;
+    border-radius: 12px;
+    background: #fcf8f9;
+}
+
+.rf-room-number-summary span {
+    color: #927780;
+    font-size: 12px;
+}
+
+.rf-room-number-summary strong {
+    color: #4b0d20;
+    font-size: 13px;
+    text-align: right;
+}
+
+.rf-room-number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.rf-room-number-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    padding: 18px 10px;
+    border: 1px solid #ead9de;
+    border-radius: 12px;
+    background: #fff;
+    color: #7b1735;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-room-number-option:hover {
+    border-color: #bb7d91;
+    background: #fcf4f7;
+}
+
+.rf-room-number-option.selected {
+    border: 2px solid #7b1735;
+    background: #fcf4f7;
+}
+
+.rf-room-number-option svg {
+    font-size: 25px;
+}
+
+.rf-room-number-option strong {
+    color: #4b0d20;
+    font-size: 14px;
+}
+
+.rf-room-number-option span {
+    color: #927780;
+    font-size: 11px;
+}
+
+.rf-room-number-option.selected span {
+    color: #7b1735;
+    font-weight: 800;
+}
+
+.rf-room-number-hint {
+    margin: 14px 0 0;
+    color: #927780;
+    font-size: 12px;
+}
+
+.rf-payment-breakdown {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+    padding: 18px;
+    border: 1px solid #ead9de;
+    border-radius: 12px;
+    background: #fcf8f9;
+}
+
+.rf-payment-breakdown > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.rf-payment-breakdown span {
+    color: #927780;
+    font-size: 12px;
+}
+
+.rf-payment-breakdown strong {
+    color: #4b0d20;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.rf-payment-breakdown .rf-payment-status.paid {
+    color: #28764b;
+}
+
+.rf-payment-breakdown .rf-payment-status.partially-paid {
+    color: #a16207;
+}
+
+.rf-payment-breakdown .rf-payment-status.unpaid {
+    color: #b42318;
+}
+
+.rf-success-dialog {
+    position: relative;
+    overflow: visible;
+    border: 1px solid #ead9de;
+    border-radius: 22px !important;
+}
+
+.rf-success-close {
+    position: absolute !important;
+    top: 12px;
+    right: 12px;
+    color: #927780 !important;
+}
+
+.rf-success-content {
+    padding: 38px 32px 20px !important;
+    text-align: center;
+}
+
+.rf-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    border: 1px solid #b9e6cb;
+    border-radius: 50%;
+    background: #eaf8ef;
+    color: #21834b;
+}
+
+.rf-success-icon svg {
+    font-size: 46px;
+}
+
+.rf-success-eyebrow {
+    color: #8b1e3f;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.rf-success-content h2 {
+    margin: 10px 0;
+    color: #4b0d20;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.rf-success-description {
+    margin: 0 0 24px;
+    color: #927780;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.rf-success-reference {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border: 1px dashed #c99eac;
+    border-radius: 12px;
+    background: #fcf4f7;
+    text-align: left;
+}
+
+.rf-success-reference > svg {
+    color: #7b1735;
+    font-size: 25px;
+}
+
+.rf-success-reference > div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.rf-success-reference span,
+.rf-success-details span,
+.rf-success-total span {
+    color: #927780;
+    font-size: 11px;
+}
+
+.rf-success-reference strong {
+    color: #7b1735;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.rf-success-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 14px;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.rf-success-details > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.rf-success-details strong {
+    color: #4b0d20;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.rf-success-total {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 26px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #f8e9ee;
+    text-align: left;
+}
+
+.rf-success-total strong {
+    color: #7b1735;
+    font-size: 27px;
+    font-weight: 900;
+}
+
+.rf-success-actions {
+    padding: 0 32px 30px !important;
+}
+
+.rf-success-actions .MuiButton-root {
+    min-height: 47px;
+    border-radius: 10px;
+    background: #7b1735;
+    font-weight: 800;
+    text-transform: none;
+}
+
+@media (max-width: 600px) {
+    .rf-service-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .rf-room-image,
+    .rf-room-image-placeholder {
+        height: 205px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .rf-page {
+        padding: 28px 22px 40px;
+    }
+    .rf-main-grid {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 18px;
+    }
+    .rf-form-card.MuiPaper-root {
+        padding: 22px;
+    }
+    .rf-payment-summary.MuiPaper-root {
+        padding: 19px;
+    }
+    .rf-room-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 850px) {
+    .rf-main-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .rf-summary-column {
+        order: -1;
+    }
+    .rf-payment-summary.MuiPaper-root {
+        position: static;
+    }
+    .rf-room-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .rf-page {
+        padding: 22px 14px 32px;
+    }
+    .rf-page-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 17px;
+    }
+    .rf-heading h1 {
+        font-size: 26px;
+    }
+    .rf-heading p {
+        font-size: 13px;
+    }
+    .rf-back-button.MuiButton-root {
+        align-self: flex-start;
+    }
+    .rf-form-card.MuiPaper-root {
+        padding: 19px 15px;
+        border-radius: 14px;
+    }
+    .rf-card-heading {
+        gap: 11px;
+        margin-bottom: 21px;
+        padding-bottom: 17px;
+    }
+    .rf-card-icon {
+        width: 41px;
+        height: 41px;
+        border-radius: 12px;
+    }
+    .rf-card-heading h2 {
+        font-size: 16px;
+    }
+    .rf-card-heading p {
+        font-size: 11px;
+    }
+    .rf-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+    .rf-field-full {
+        grid-column: auto;
+    }
+    .rf-room-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .rf-payment-summary.MuiPaper-root {
+        padding: 19px 16px;
+    }
+    .rf-summary-total > strong {
+        font-size: 26px;
+    }
+}
