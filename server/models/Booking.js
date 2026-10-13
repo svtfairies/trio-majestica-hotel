@@ -93,6 +93,21 @@ const bookingSchema = new mongoose.Schema(
             min: 1,
             default: 1
         },
+        roomNumbers: {
+            type: [String],
+            required: true,
+            validate: {
+                validator: function (numbers) {
+                    return (
+                        Array.isArray(numbers) &&
+                        numbers.length === this.roomsBooked &&
+                        numbers.every((number) => String(number).trim() !== "") &&
+                        new Set(numbers).size === numbers.length
+                    );
+                },
+                message: "Selected room numbers must match the number of rooms booked."
+            }
+        },
     },
     {
         timestamps: true
