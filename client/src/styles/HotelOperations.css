@@ -1,0 +1,281 @@
+.operations-page {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.operations-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 2px 0 8px;
+}
+
+.operations-kicker {
+    display: block;
+    margin-bottom: 8px;
+    color: #8f1d36;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.operations-icon-button.MuiIconButton-root {
+    color: #651426;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(91, 16, 36, 0.08);
+}
+
+.operations-stats {
+    margin-bottom: 2px;
+}
+
+.operations-stat {
+    min-height: 104px;
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(91, 16, 36, 0.08);
+}
+
+.operations-stat.secondary {
+    min-height: 86px;
+}
+
+.operations-stat span {
+    display: block;
+    margin-bottom: 10px;
+    color: #7c7480;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.operations-stat strong {
+    color: #4a0c1b;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.operations-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.operations-toolbar .search-bar {
+    flex: 1;
+}
+
+.operations-toolbar.compact {
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.operations-table-wrap,
+.operations-report-panel,
+.request-card {
+    overflow: visible;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(91, 16, 36, 0.08);
+}
+
+.operations-table-wrap {
+    overflow-x: auto;
+}
+
+.operations-table {
+    min-width: 960px;
+    margin: 0;
+}
+
+.operations-table thead th {
+    padding: 16px 18px;
+    color: #6c2436;
+    background: #fbf7f8;
+    border-bottom: 1px solid #eadde1;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.operations-table tbody td {
+    padding: 16px 18px;
+    color: #4b4650;
+    border-color: #f1e8eb;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.operations-table td strong,
+.request-card h3,
+.operations-report-panel h3 {
+    color: #2c1620;
+    font-weight: 800;
+}
+
+.operations-table td span,
+.operations-table td small {
+    display: block;
+}
+
+.operations-table td small {
+    margin-top: 4px;
+    color: #8b838c;
+}
+
+.operations-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.operations-actions .MuiButton-root,
+.request-card-footer .MuiButton-root {
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.operations-actions .MuiButton-contained,
+.request-card-footer .MuiButton-contained {
+    background: #651426;
+}
+
+.operations-actions .MuiButton-contained:hover,
+.request-card-footer .MuiButton-contained:hover {
+    background: #4a0c1b;
+}
+
+.operations-state {
+    display: grid;
+    min-height: 220px;
+    place-items: center;
+    gap: 12px;
+    padding: 36px 18px;
+    color: #7c7480;
+    text-align: center;
+}
+
+.operations-state svg {
+    color: #8f1d36;
+    font-size: 42px;
+}
+
+.payment-chip.MuiChip-root {
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.payment-chip.paid {
+    color: #166534;
+    background: #dcfce7;
+}
+
+.payment-chip.unpaid {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.payment-chip.partially-paid {
+    color: #92400e;
+    background: #fef3c7;
+}
+
+.receipt-panel {
+    display: grid;
+    gap: 12px;
+}
+
+.receipt-panel > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1e8eb;
+}
+
+.receipt-panel span {
+    color: #7c7480;
+    font-size: 13px;
+}
+
+.receipt-panel strong {
+    color: #2c1620;
+}
+
+.receipt-total strong {
+    color: #651426;
+    font-size: 22px;
+}
+
+.request-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 18px;
+}
+
+.request-card-header,
+.request-card-footer,
+.status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.request-card h3,
+.operations-report-panel h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+}
+
+.request-card-header span,
+.request-card-footer span {
+    color: #7c7480;
+    font-size: 13px;
+}
+
+.operations-report-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(300px, 1.2fr);
+    gap: 18px;
+}
+
+.operations-report-panel {
+    padding: 18px;
+}
+
+.status-row {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1e8eb;
+}
+
+.status-row:last-child {
+    border-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .operations-header,
+    .operations-toolbar,
+    .request-card-header,
+    .request-card-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .operations-report-grid {
+        grid-template-columns: 1fr;
+    }
+}

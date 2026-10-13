@@ -11,6 +11,7 @@ import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
+import RoomServiceRoundedIcon from "@mui/icons-material/RoomServiceRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -27,6 +28,7 @@ const menuItems = [
     { label: "Guests", path: "/guests", icon: <PeopleAltRoundedIcon /> },
     { label: "Room Management", path: "/rooms", icon: <BedRoundedIcon /> },
     { label: "Billing & Payments", path: "/billing", icon: <ReceiptLongRoundedIcon /> },
+    { label: "Guest Requests", path: "/guest-requests", icon: <RoomServiceRoundedIcon /> },
     { label: "Inventory", path: "/inventory", icon: <Inventory2RoundedIcon /> },
     { label: "Reports", path: "/reports", icon: <AssessmentRoundedIcon /> },
     { label: "Notifications", path: "/notifications", icon: <NotificationsRoundedIcon /> }
