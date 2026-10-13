@@ -16,19 +16,18 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ApartmentRoundedIcon from "@mui/icons-material/ApartmentRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
 
 const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").replace(/\/+$/, "");
 
 const menuItems = [
     { label: "Dashboard", path: "/receptionist/dashboard", icon: <DashboardRoundedIcon /> },
-    { label: "Reservations", path: "/reservations", icon: <CalendarMonthRoundedIcon /> },
-    { label: "Guests", path: "/guests", icon: <PeopleAltRoundedIcon /> },
+    { label: "Reservations", path: "/receptionist/reservations", icon: <CalendarMonthRoundedIcon /> },
+    { label: "Guest Records", path: "/guests", icon: <PeopleAltRoundedIcon /> },
     { label: "Room Management", path: "/rooms", icon: <BedRoundedIcon /> },
-    { label: "Billing & Payments", path: "/billing", icon: <ReceiptLongRoundedIcon /> },
+    { label: "Billing & Payments", path: "/receptionist/billing", icon: <ReceiptLongRoundedIcon /> },
     { label: "Inventory", path: "/inventory", icon: <Inventory2RoundedIcon /> },
-    { label: "Reports", path: "/reports", icon: <AssessmentRoundedIcon /> },
+    { label: "Reports", path: "/receptionist/reports", icon: <AssessmentRoundedIcon /> },
     { label: "Notifications", path: "/notifications", icon: <NotificationsRoundedIcon /> }
 ];
 
@@ -56,9 +55,9 @@ export default function Sidebar({ onLogout }) {
                     }
                 });
 
-                const user = response.data?.user || response.data?.data?.user;
+                const user = response.data?.user || response.data?.data?.user || response.data?.data || response.data;
 
-                if (!user || user.role !== "receptionist") {
+                if (!user || String(user.role || "").toLowerCase() !== "receptionist") {
                     throw new Error("Invalid receptionist account.");
                 }
 
@@ -99,7 +98,7 @@ export default function Sidebar({ onLogout }) {
         };
     }, [navigate]);
 
-    const receptionistName = receptionist?.name || "Loading profile...";
+    const receptionistName = receptionist?.fullName || receptionist?.name || receptionist?.username || "Receptionist";
     const receptionistRole = receptionist?.role === "receptionist" ? "Front Desk Staff" : "";
     const receptionistImage = receptionist?.profileImage || receptionist?.avatar || "";
 
@@ -151,7 +150,7 @@ export default function Sidebar({ onLogout }) {
                 </nav>
 
                 <div className="sidebar-bottom">
-                    <NavLink to="/profile" onClick={handleNavigation} className="sidebar-profile">
+                    <NavLink to="/receptionist-profile" onClick={handleNavigation} className="sidebar-profile">
                         <Avatar src={receptionistImage || undefined} alt={receptionistName} className="sidebar-profile-avatar">
                             {!receptionistImage && <PersonRoundedIcon />}
                         </Avatar>
