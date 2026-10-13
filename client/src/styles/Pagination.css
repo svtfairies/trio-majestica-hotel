@@ -1,0 +1,151 @@
+.pagination-component {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 20px;
+    border-top: 1px solid #eee7e6;
+    background: #ffffff;
+    color: #95848a;
+    font-size: 11px;
+}
+
+.pagination-summary {
+    min-width: 0;
+    font-size: 12px;
+    color: #95848a;
+    line-height: 1.5;
+}
+
+.pagination-summary strong {
+    color: #62444e;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 0;
+}
+
+.pagination-page-size-label {
+    color: #95848a;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.pagination-page-size.MuiInputBase-root {
+    min-width: 62px;
+    height: 30px;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #62444e;
+    font-size: 11px;
+}
+
+.pagination-page-size.MuiInputBase-root .MuiOutlinedInput-notchedOutline {
+    border-color: #e8dfdf;
+}
+
+.pagination-page-size.MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #cda6b3;
+}
+
+.pagination-page-size.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-width: 1px;
+    border-color: #8b1e3f;
+}
+
+.pagination-page-size .MuiSelect-select {
+    padding: 5px 25px 5px 9px;
+}
+
+.pagination-menu .MuiMenuItem-root {
+    min-height: 32px;
+    font-size: 11px;
+}
+
+.pagination-menu .MuiMenuItem-root.Mui-selected {
+    background: #fff0f4;
+    color: #7b1735;
+}
+
+.pagination-page-label {
+    margin: 0 5px 0 8px;
+    color: #705b63;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-buttons .MuiIconButton-root {
+    width: 29px;
+    height: 29px;
+    border: 1px solid #e9dfdf;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #7b1735;
+}
+
+.pagination-buttons .MuiIconButton-root:hover {
+    border-color: #d7b2be;
+    background: #fff4f7;
+}
+
+.pagination-buttons .MuiIconButton-root.Mui-disabled {
+    border-color: #eee8e9;
+    background: #faf8f8;
+    color: #c9bdc1;
+}
+
+@media (max-width: 760px) {
+    .pagination-component {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 13px;
+    }
+
+    .pagination-controls {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .pagination-page-label {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 430px) {
+    .pagination-controls {
+        gap: 7px;
+    }
+
+    .pagination-page-size-label {
+        font-size: 10px;
+    }
+
+    .pagination-page-label {
+        font-size: 10px;
+    }
+
+    .pagination-buttons {
+        gap: 3px;
+    }
+
+    .pagination-buttons .MuiIconButton-root {
+        width: 27px;
+        height: 27px;
+    }
+}
