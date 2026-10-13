@@ -59,7 +59,6 @@ function InventoryTable({
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deletingItem, setDeletingItem] = useState(null);
 
-  // Fetch inventory records from the backend
   const fetchInventory = useCallback(async () => {
     setLoading(true);
     setLoadError("");
@@ -153,7 +152,6 @@ function InventoryTable({
     }));
   };
 
-  // Create or update an inventory item
   const handleSave = async (event) => {
     event.preventDefault();
     setFormError("");
@@ -264,7 +262,6 @@ function InventoryTable({
     setDeletingItem(null);
   };
 
-  // Delete an inventory item
   const handleConfirmDelete = async () => {
     if (!deletingItem) return;
 
@@ -376,7 +373,6 @@ function InventoryTable({
     },
   });
 
-  // Return to the first page when the search/filter changes
   useEffect(() => {
     table.setPageIndex(0);
   }, [searchQuery, selectedFilter, table]);
@@ -505,7 +501,6 @@ function InventoryTable({
           </Box>
         )}
 
-      {/* Add/Edit Inventory Modal */}
       <Dialog
         open={openEditModal}
         onClose={handleCloseEditModal}
@@ -615,7 +610,6 @@ function InventoryTable({
         </DialogActions>
       </Dialog>
 
-      {/* Delete Confirmation Modal */}
       <Dialog
         open={openDeleteModal}
         onClose={handleCloseDeleteModal}
