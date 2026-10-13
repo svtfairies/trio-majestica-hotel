@@ -1,4 +1,26 @@
- .reports-page {
+:root {
+    --rd-ink: #20202b;
+    --rd-muted: #777785;
+    --rd-subtle: #9a9aa5;
+    --rd-page: #f7f5f2;
+    --rd-surface: #ffffff;
+    --rd-border: #eae5e0;
+    --rd-burgundy: #6f1730;
+    --rd-burgundy-dark: #4b0d20;
+    --rd-burgundy-soft: #f8edf0;
+    --rd-gold: #bd9656;
+    --rd-green: #16804a;
+    --rd-green-soft: #e9f7ef;
+    --rd-orange: #c66a24;
+    --rd-orange-soft: #fff2e7;
+    --rd-blue: #3469c8;
+    --rd-blue-soft: #edf3ff;
+    --rd-purple: #7650b8;
+    --rd-purple-soft: #f2edfb;
+    --rd-shadow: 0 8px 28px rgba(54, 30, 36, 0.045);
+}
+
+.reports-page {
     min-width: 0;
     padding: 28px;
     background: #f7f5f2;
@@ -6,30 +28,34 @@
 
 .reports-header {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 24px;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
 .reports-header h1 {
     margin: 0;
-    color: #35121d;
-    font-size: 30px;
+    color: #251820;
+    font-size: clamp(27px, 2.3vw, 36px);
     font-weight: 800;
-    letter-spacing: -0.7px;
+    letter-spacing: -1.2px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
 }
 
 .reports-header p {
-    margin: 7px 0 0;
-    color: #81777a;
-    font-size: 13px;
+    margin: 9px 0 0;
+    color: var(--rd-muted);
+    font-size: 14px;
+    line-height: 1.65;
 }
 
 .reports-header-actions {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .reports-refresh-button.MuiButton-root,
