@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Alert, Button, CircularProgress, MenuItem, Paper, TextField, Checkbox, FormControlLabel, Dialog, DialogContent, DialogActions, IconButton } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
@@ -104,6 +104,56 @@ export default function ReservationForm() {
     const paymentStatus = amountPaid >= total ? "Paid" : amountPaid > 0 ? "Partially Paid" : "Unpaid";
     const paymentAmountInvalid = amountPaid < 0 || amountPaid > total || (form.paymentType === "Full Payment" && amountPaid !== total) || (form.paymentType === "Partial Payment" && (amountPaid <= 0 || amountPaid >= total));
 
+    const { id } = useParams();
+    const isEditMode = Boolean(id);
+
+    useEffect(() => {
+        if (!isEditMode) return;
+
+        const fetchReservation = async () => {
+            try {
+                const token = getToken();
+                const response = await axios.get(`${API_URL}/bookings/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                const booking = response.data.booking || response.data.data || response.data;
+                const roomId = String(booking.room?._id || booking.roomId || booking.room || "");
+                const services = Array.isArray(booking.services)
+                    ? booking.services.map((service) => typeof service === "string" ? service : service.id).filter(Boolean)
+                    : [];
+
+                setForm({
+                    ...INITIAL_FORM,
+                    guestName: booking.guestName || "",
+                    email: booking.guestEmail || booking.email || "",
+                    phone: booking.guestPhone || booking.phone || "",
+                    roomId,
+                    roomType: booking.roomType || booking.room?.name || "",
+                    roomNumber: Array.isArray(booking.roomNumbers) ? booking.roomNumbers.join(", ") : "",
+                    checkIn: booking.checkIn ? String(booking.checkIn).slice(0, 10) : "",
+                    checkOut: booking.checkOut ? String(booking.checkOut).slice(0, 10) : "",
+                    adults: Number(booking.adults ?? booking.guests ?? 1),
+                    children: Number(booking.children || 0),
+                    roomCount: Number(booking.roomsBooked ?? booking.roomCount ?? booking.rooms ?? 1),
+                    paymentMethod: booking.paymentMethod || "Cash",
+                    paymentType: booking.paymentType || "Full Payment",
+                    amountPaid: String(booking.amountPaid ?? ""),
+                    paymentReference: booking.paymentReference || "",
+                    specialRequests: booking.specialRequests || ""
+                });
+
+                setSelectedRoomNumbers(booking.roomNumbers || []);
+                setSelectedServices(services);
+            } catch (fetchError) {
+                console.error("Fetch reservation failed:", fetchError.response?.data || fetchError);
+                setError(getErrorMessage(fetchError));
+            }
+        };
+
+        fetchReservation();
+    }, [id, isEditMode]);
+    
     const setField = (field, value) => {
         setForm((previous) => ({ ...previous, [field]: value }));
         setErrors((previous) => ({ ...previous, [field]: "" }));
@@ -182,6 +232,69 @@ export default function ReservationForm() {
         setSuccess("");
     };
 
+    useEffect(() => {
+        if (!selectedRoom || !form.checkIn || !form.checkOut) {
+            setPhysicalRooms([]);
+            setSelectedRoomNumbers([]);
+            return;
+        }
+
+        const token = getToken();
+        if (!token) return;
+
+        let cancelled = false;
+
+        const fetchPhysicalRooms = async () => {
+            setLoadingRoomNumbers(true);
+
+            try {
+                const response = await axios.get(
+                    `${API_URL}/rooms/physical`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                        params: {
+                            roomTypeId: getRoomId(selectedRoom),
+                            checkIn: form.checkIn,
+                            checkOut: form.checkOut
+                        }
+                    }
+                );
+
+                if (cancelled) return;
+
+                setPhysicalRooms(response.data.rooms || []);
+                if (!isEditMode) setSelectedRoomNumbers([]);
+                } catch (fetchError) {
+                    if (cancelled) return;
+
+                    setPhysicalRooms([]);
+
+                    console.error(
+                        "Fetch physical rooms failed:",
+                        fetchError.response?.data || fetchError.message
+                    );
+
+                    setError(
+                        fetchError.response?.data?.message ||
+                        fetchError.response?.data?.error ||
+                        "Unable to load available room numbers."
+                    );
+                } finally {
+                    if (!cancelled) {
+                        setLoadingRoomNumbers(false);
+                    }
+                }
+        };
+
+        fetchPhysicalRooms();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [selectedRoom, form.checkIn, form.checkOut, isEditMode]);
+
     const handleRoomChange = (room) => {
         const required = Math.max(1, Math.ceil(guests / getRoomCapacity(room)));
         setForm((previous) => ({ ...previous, roomId: getRoomId(room), roomType: getRoomType(room), roomNumber: "", roomCount: required }));
@@ -197,8 +310,9 @@ export default function ReservationForm() {
         if (!form.email.trim()) 
             next.email = "Please enter an email address.";
 
-        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) 
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
             next.email = "Please enter a valid email address.";
+        }
 
         if (!form.phone.trim()) 
             next.phone = "Please enter a phone number.";
@@ -214,6 +328,10 @@ export default function ReservationForm() {
 
         if (!selectedRoom) 
             next.roomId = "Please select a room type.";
+
+        if (selectedRoomNumbers.length !== roomsNeeded) {
+            next.roomNumbers = `Please select exactly ${roomsNeeded} room(s).`;
+        }
 
         if (!Number(form.adults) || Number(form.adults) < 1) 
             next.adults = "At least one adult is required.";
@@ -271,6 +389,7 @@ export default function ReservationForm() {
             roomType: getRoomType(selectedRoom),
             rooms: Number(form.roomCount),
             roomCount: Number(form.roomCount),
+            roomNumbers: selectedRoomNumbers,
             checkIn: form.checkIn,
             checkOut: form.checkOut,
             adults: Number(form.adults),
@@ -300,18 +419,27 @@ export default function ReservationForm() {
         setSaving(true);
         
         try {
-            await axios.post(`${API_URL}/bookings`, payload, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
+            await (isEditMode
+                ? axios.put(`${API_URL}/bookings/${id}`, payload, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                })
+                : axios.post(`${API_URL}/bookings`, payload, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                })
+            );
 
             setCreatedReservation({
                 reference: reservationReference,
                 guestName: form.guestName.trim(),
                 roomType: getRoomType(selectedRoom),
                 roomCount: Number(form.roomCount),
+                roomNumbers: [...selectedRoomNumbers],
                 checkIn: form.checkIn,
                 checkOut: form.checkOut,
                 nights,
@@ -341,7 +469,7 @@ export default function ReservationForm() {
                 <header className="rf-page-header">
                     <div className="rf-heading">
                         <span className="rf-eyebrow">TRIO MAJESTICA HOTEL</span>
-                        <h1>Create Room Reservation</h1>
+                        <h1>{isEditMode ? "Edit Reservation" : "Create Room Reservation"}</h1>
                         <p>Register guests, select rooms, and customize their stay.</p>
                     </div>
 
@@ -685,7 +813,7 @@ export default function ReservationForm() {
                                     <strong>{formatCurrency(total)}</strong>
                                 </div>
 
-                                <Button type="submit" fullWidth variant="contained" className="rf-submit-button" startIcon={saving ? <CircularProgress size={18} color="inherit" /> : <SaveRoundedIcon />} disabled={saving || loadingRooms || !selectedRoom || nights < 1 || roomSelectionInvalid}>{saving ? "Saving Reservation..." : "Confirm Reservation"}</Button>
+                                <Button type="submit" fullWidth variant="contained" className="rf-submit-button" startIcon={saving ? <CircularProgress size={18} color="inherit" /> : <SaveRoundedIcon />} disabled={saving || loadingRooms || !selectedRoom || nights < 1 || roomSelectionInvalid}>{saving ? "Saving Reservation..." : isEditMode ? "Save Changes" : "Confirm Reservation"}</Button>
                             </Paper>
                         </aside>
                     </div>
@@ -693,7 +821,6 @@ export default function ReservationForm() {
 
                 <Dialog open={successModalOpen} onClose={() => {}} fullWidth maxWidth="sm" PaperProps={{ className: "rf-success-dialog" }}>
                     <IconButton className="rf-success-close" onClick={() => navigate("/receptionist/reservations", { state: { message: "Reservation created successfully." } })} aria-label="Close success dialog">
-                        <CloseRoundedIcon />
                     </IconButton>
                     <DialogContent className="rf-success-content">
                         <div className="rf-success-icon">
@@ -718,6 +845,12 @@ export default function ReservationForm() {
                                     <div><span>Guest Name</span><strong>{createdReservation.guestName}</strong></div>
                                     <div><span>Room Type</span><strong>{createdReservation.roomType}</strong></div>
                                     <div><span>Rooms Reserved</span><strong>{createdReservation.roomCount}</strong></div>
+                                    <div>
+                                        <span>Room Number</span>
+                                        <strong>
+                                            {createdReservation.roomNumbers?.join(", ") || "Not specified"}
+                                        </strong>
+                                    </div>
                                     <div><span>Check-in</span><strong>{createdReservation.checkIn}</strong></div>
                                     <div><span>Check-out</span><strong>{createdReservation.checkOut}</strong></div>
                                     <div><span>Duration</span><strong>{createdReservation.nights} night(s)</strong></div>
