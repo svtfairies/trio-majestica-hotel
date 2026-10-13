@@ -1,0 +1,719 @@
+.inventory-table-wrapper {
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(53, 7, 19, 0.06);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-table .MuiTableHead-root {
+    background: #f8edf0;
+}
+
+.inventory-table .MuiTableHead-root .MuiTableCell-root {
+    padding: 16px;
+    color: #5c1024;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 2px solid #ead5dc;
+}
+
+.inventory-table .MuiTableBody-root .MuiTableCell-root {
+    padding: 15px 16px;
+    color: #51434a;
+    font-size: 13px;
+    border-bottom: 1px solid #f0e7ea;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-table .MuiTableBody-root .MuiTableRow-root {
+    background-color: #ffffff;
+}
+
+.inventory-table .MuiTableBody-root .MuiTableRow-root:hover {
+    background-color: #fcf7f9;
+}
+
+.inventory-item-name {
+    color: #350713 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.inventory-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inventory-edit-button,
+.inventory-delete-button {
+    padding: 6px 13px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    white-space: nowrap;
+    box-shadow: none !important;
+}
+
+.inventory-edit-button {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.inventory-edit-button:hover {
+    background: #7d1b35 !important;
+}
+
+.inventory-delete-button {
+    color: #8b1e2d !important;
+    border-color: #d9b7c1 !important;
+}
+
+.inventory-delete-button:hover {
+    color: #fff !important;
+    background: #8b1e2d !important;
+    border-color: #8b1e2d !important;
+}
+
+.inventory-empty-cell {
+    padding: 35px 16px !important;
+    color: #8c7b82 !important;
+    text-align: center;
+}
+
+.inventory-table-loading,
+.inventory-table-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 35px 20px;
+    color: #5c1024;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-table-loading .MuiCircularProgress-root {
+    color: #5c1024;
+}
+
+.inventory-table-pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #f0e7ea;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-table-pagination .MuiTypography-root {
+    color: #5c1024;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.inventory-pagination-prev,
+.inventory-pagination-next {
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.inventory-pagination-prev {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.inventory-pagination-prev:hover {
+    background: #f8edf0 !important;
+}
+
+.inventory-pagination-next {
+    color: #fff !important;
+    background: #5c1024 !important;
+}
+
+.inventory-pagination-next:hover {
+    background: #7d1b35 !important;
+}
+
+@media (max-width: 600px) {
+    .inventory-table-pagination {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .inventory-table-pagination .MuiButton-root {
+        min-width: 55px;
+        padding: 6px 10px;
+    }
+}
+.inventory-add-button {
+    padding: 8px 16px !important;
+    border-radius: 7px !important;
+    background: #5c1024 !important;
+    color: #ffffff !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+    white-space: nowrap;
+}
+
+.inventory-add-button:hover {
+    background: #7d1b35 !important;
+}
+
+
+.inventory-edit-modal .MuiPaper-root,
+.inventory-delete-modal .MuiPaper-root {
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-modal-title {
+    padding: 22px 24px 16px !important;
+    color: #5c1024 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid #eadde1;
+}
+
+.inventory-modal-content {
+    padding: 22px 24px !important;
+    font-family: Arial, sans-serif !important;
+}
+
+.inventory-form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding-top: 4px;
+}
+
+.inventory-form-fields .MuiTextField-root {
+    font-family: Arial, sans-serif;
+}
+
+.inventory-form-fields .MuiInputLabel-root {
+    font-family: Arial, sans-serif;
+}
+
+.inventory-form-fields .MuiInputBase-input {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.inventory-form-fields .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024;
+}
+
+.inventory-form-fields .MuiInputLabel-root.Mui-focused {
+    color: #5c1024;
+}
+
+.inventory-modal-actions {
+    display: flex;
+    gap: 10px;
+    padding: 16px 24px 22px !important;
+    border-top: 1px solid #f0e7ea;
+}
+
+.inventory-modal-cancel,
+.inventory-modal-save,
+.inventory-delete-confirm-button {
+    padding: 8px 16px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.inventory-modal-cancel {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+}
+
+.inventory-modal-cancel:hover {
+    background: #f8edf0 !important;
+}
+
+.inventory-modal-save {
+    color: #ffffff !important;
+    background: #5c1024 !important;
+}
+
+.inventory-modal-save:hover {
+    background: #7d1b35 !important;
+}
+
+.inventory-delete-confirm-button {
+    color: #ffffff !important;
+    background: #8b1e2d !important;
+}
+
+.inventory-delete-confirm-button:hover {
+    background: #a52336 !important;
+}
+
+.inventory-form-error {
+    margin-bottom: 16px !important;
+    color: #b42336 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+/* ================================
+   RETRY BUTTON
+================================ */
+
+.inventory-retry-button {
+    color: #5c1024 !important;
+    border-color: #d9b7c1 !important;
+    font-family: Arial, sans-serif !important;
+    text-transform: none !important;
+}
+
+/* ================================
+   RESPONSIVE DIALOGS AND TOOLBAR
+================================ */
+
+@media (max-width: 600px) {
+    .inventory-table-toolbar {
+        padding: 14px 12px;
+        gap: 10px;
+    }
+
+    .inventory-table-title {
+        font-size: 16px !important;
+    }
+
+    .inventory-add-button {
+        padding: 7px 11px !important;
+        font-size: 12px !important;
+    }
+
+    .inventory-form-fields {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .inventory-modal-title {
+        padding: 18px 18px 14px !important;
+    }
+
+    .inventory-modal-content {
+        padding: 18px !important;
+    }
+
+    .inventory-modal-actions {
+        padding: 14px 18px 18px !important;
+        flex-wrap: wrap;
+    }
+}
+
+.inventory-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px !important;
+    color: #5c1024;
+    border-bottom: 1px solid #eadde1;
+}
+
+.inventory-modal-header .inventory-modal-title {
+    padding: 0 !important;
+    border-bottom: none;
+    font-family: Arial, sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+.inventory-modal-subtitle {
+    margin-top: 5px !important;
+    color: #8c7b82 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+.inventory-modal-close {
+    color: #5c1024 !important;
+}
+
+.inventory-modal-close:hover {
+    background: #f8edf0 !important;
+}
+
+/* FORM FIELDS */
+.inventory-modal-field .MuiInputBase-root,
+.inventory-modal-field .MuiInputLabel-root,
+.inventory-modal-field .MuiFormHelperText-root {
+    font-family: Arial, sans-serif !important;
+}
+
+.inventory-modal-field .MuiInputBase-input {
+    font-size: 13px !important;
+}
+
+.inventory-modal-field .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024 !important;
+}
+
+.inventory-modal-field .MuiInputLabel-root.Mui-focused {
+    color: #5c1024 !important;
+}
+
+.inventory-modal-field .MuiFormHelperText-root {
+    font-size: 11px !important;
+}
+
+/* CONFIRMATION DIALOG */
+.inventory-confirm-dialog .MuiPaper-root {
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.inventory-confirm-title {
+    color: #5c1024 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+.inventory-confirm-content {
+    color: #51434a;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+.inventory-confirm-actions {
+    gap: 10px;
+    padding: 16px 24px 22px !important;
+    border-top: 1px solid #f0e7ea;
+}
+
+.inventory-form-error {
+    margin-bottom: 16px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+@media (max-width: 600px) {
+    .inventory-modal-header {
+        padding: 18px !important;
+    }
+
+    .inventory-modal-header .inventory-modal-title {
+        font-size: 18px !important;
+    }
+
+    .inventory-confirm-actions {
+        padding: 14px 18px 18px !important;
+        flex-wrap: wrap;
+    }
+}
+
+.inventory-edit-modal,
+.inventory-edit-modal *,
+.inventory-delete-modal,
+.inventory-delete-modal *,
+.inventory-confirm-dialog,
+.inventory-confirm-dialog * {
+    font-family: Arial, sans-serif;
+}
+
+.inventory-edit-modal .MuiDialog-paper,
+.inventory-delete-modal .MuiDialog-paper,
+.inventory-confirm-dialog .MuiDialog-paper {
+    color: #350713;
+    background: #ffffff;
+    border: 1px solid #eadde1;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(53, 7, 19, 0.16);
+}
+
+.inventory-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 26px !important;
+    color: #f8e9ed;
+    background: #5c1024;
+    border-bottom: none !important;
+}
+
+.inventory-modal-header .inventory-modal-title {
+    padding: 0 !important;
+    margin: 0;
+    color: #f8e9ed !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    border-bottom: none !important;
+}
+
+.inventory-modal-subtitle {
+    margin-top: 5px !important;
+    color: #d4aab5 !important;
+    font-size: 13px !important;
+}
+
+.inventory-modal-close {
+    color: #f8e9ed !important;
+    border-radius: 7px !important;
+}
+
+.inventory-modal-close:hover {
+    background: #7d1b35 !important;
+}
+
+/* Light form background */
+.inventory-edit-modal .inventory-modal-content,
+.inventory-delete-modal .inventory-modal-content {
+    padding: 26px !important;
+    color: #350713;
+    background: #f8f6f7;
+    border-top: 1px solid #eadde1;
+    border-bottom: 1px solid #eadde1;
+}
+
+/* Input labels */
+.inventory-modal-field .MuiInputLabel-root {
+    color: #8c7b82;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px;
+}
+
+.inventory-modal-field .MuiInputLabel-root.Mui-focused {
+    color: #5c1024 !important;
+}
+
+/* Input boxes */
+.inventory-modal-field .MuiOutlinedInput-root {
+    color: #350713;
+    background: #ffffff;
+    border-radius: 7px;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px;
+}
+
+.inventory-modal-field .MuiOutlinedInput-notchedOutline {
+    border-color: #d9b7c1;
+}
+
+.inventory-modal-field .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #7d1b35;
+}
+
+.inventory-modal-field .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #5c1024;
+    border-width: 1px;
+}
+
+.inventory-modal-field .MuiFormHelperText-root {
+    font-family: Arial, sans-serif !important;
+    font-size: 11px;
+}
+
+.inventory-modal-field .MuiFormHelperText-root.Mui-error {
+    color: #a32032;
+}
+
+/* Error alert */
+.inventory-form-error {
+    margin-bottom: 16px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+/* Modal footer */
+.inventory-modal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px 26px !important;
+    background: #ffffff;
+    border-top: 1px solid #f0e7ea;
+}
+
+/* Cancel and save buttons */
+.inventory-modal-cancel,
+.inventory-modal-save {
+    padding: 8px 18px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.inventory-modal-cancel {
+    color: #5c1024 !important;
+    background: #ffffff !important;
+    border-color: #d9b7c1 !important;
+}
+
+.inventory-modal-cancel:hover {
+    background: #f8edf0 !important;
+    border-color: #7d1b35 !important;
+}
+
+.inventory-modal-save {
+    color: #ffffff !important;
+    background: #5c1024 !important;
+}
+
+.inventory-modal-save:hover {
+    background: #7d1b35 !important;
+}
+
+.inventory-modal-save.Mui-disabled {
+    color: #ffffff !important;
+    background: #c7a3aa !important;
+}
+
+/* Confirmation dialog */
+.inventory-confirm-title {
+    padding: 22px 24px 10px !important;
+    color: #5c1024 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+.inventory-confirm-content {
+    padding: 8px 24px 20px !important;
+    color: #51434a !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.7;
+}
+
+.inventory-confirm-actions {
+    display: flex;
+    gap: 10px;
+    padding: 14px 24px 20px !important;
+    background: #ffffff;
+    border-top: 1px solid #f0e7ea;
+}
+
+/* Confirmation buttons */
+.inventory-confirm-no,
+.inventory-confirm-yes,
+.inventory-delete-confirm-button {
+    padding: 8px 22px !important;
+    border-radius: 7px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.inventory-confirm-no {
+    color: #5c1024 !important;
+    background: #ffffff !important;
+    border-color: #d9b7c1 !important;
+}
+
+.inventory-confirm-no:hover {
+    background: #f8edf0 !important;
+    border-color: #7d1b35 !important;
+}
+
+.inventory-confirm-yes {
+    color: #ffffff !important;
+    background: #5c1024 !important;
+}
+
+.inventory-confirm-yes:hover {
+    background: #7d1b35 !important;
+}
+
+.inventory-delete-confirm-button {
+    color: #ffffff !important;
+    background: #8b1e2d !important;
+}
+
+.inventory-delete-confirm-button:hover {
+    background: #6f1522 !important;
+}
+
+.inventory-confirm-yes.Mui-disabled,
+.inventory-delete-confirm-button.Mui-disabled {
+    color: #ffffff !important;
+    background: #c7a3aa !important;
+}
+
+/* Responsive modal */
+@media (max-width: 600px) {
+    .inventory-modal-header {
+        padding: 18px !important;
+    }
+
+    .inventory-modal-header .inventory-modal-title {
+        font-size: 20px !important;
+    }
+
+    .inventory-edit-modal .inventory-modal-content,
+    .inventory-delete-modal .inventory-modal-content {
+        padding: 18px !important;
+    }
+
+    .inventory-modal-actions {
+        padding: 12px 18px !important;
+        flex-wrap: wrap;
+    }
+
+    .inventory-confirm-title {
+        padding: 18px 18px 10px !important;
+    }
+
+    .inventory-confirm-content {
+        padding: 8px 18px 18px !important;
+    }
+
+    .inventory-confirm-actions {
+        gap: 8px;
+        padding: 12px 18px !important;
+        flex-wrap: wrap;
+    }
+}
+
+

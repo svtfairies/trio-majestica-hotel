@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "../styles/GuestTable.css";
 
 import {
     Alert,
@@ -17,7 +18,6 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import "../styles/GuestTable.css";
 
 const API_URL = (
     import.meta.env.VITE_API_URL || "http://localhost:5000/api"

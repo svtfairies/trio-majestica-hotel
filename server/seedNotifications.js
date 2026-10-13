@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 const Notification = require("./models/Notification");
 require("dotenv").config();
