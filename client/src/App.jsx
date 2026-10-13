@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import RoomManagement from "./pages/RoomManagement";
 import GuestRecords from "./pages/GuestRecords";
+import Notifications from "./pages/Notifications";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/rooms" element={<RoomManagement/>} />
         <Route path="/guests" element={<GuestRecords/>} />
+        <Route path="/notifications" element={<Notifications/>}/>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
