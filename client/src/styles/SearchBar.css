@@ -1,77 +1,123 @@
+
 .search-bar {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 340px;
-  height: 38px;
-  padding: 0 9px;
-  gap: 7px;
-  background: #ffffff;
-  border: 1px solid #dfe3e7;
-  border-radius: 6px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #ead9de;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-bar:focus-within {
-  border-color: #94a3b8;
-  box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.1);
+    border-color: #7b1735;
+    box-shadow: 0 0 0 3px rgba(123, 23, 53, 0.08);
 }
 
-.search-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #9aa1a8;
-  font-size: 15px;
+.search-bar .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    color: #987b85;
+    font-size: 16px;
+    line-height: 1;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.search-bar .search-icon svg {
+    display: block;
+    width: 15px;
+    height: 15px;
 }
 
 .search-bar input {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  padding: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #303840;
-  font-size: 12px;
-  font-family: inherit;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 42px 0 38px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: inherit;
+    background: transparent;
+    color: #4b0d20;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: normal;
+    box-shadow: none;
 }
 
 .search-bar input::placeholder {
-  color: #a6adb4;
+    color: #a18b93;
+    opacity: 1;
 }
 
-.search-clear {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  padding: 2px;
-  border: none;
-  border-radius: 5px;
-  background: #f3f4f6;
-  color: #8c949c;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+.search-bar input:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
-.search-clear:hover {
-  background: #e5e7eb;
-  color: #4b5563;
-  transform: scale(1.08);
+.search-bar .search-clear {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #8b1e3f;
+    font-size: 16px;
+    line-height: 1;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-.search-clear:active {
-  transform: scale(0.92);
+.search-bar .search-clear:hover {
+    background: #f8e9ee;
+    color: #5c1024;
+}
+
+.search-bar .search-clear svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.search-bar .search-clear:focus-visible {
+    outline: 2px solid #7b1735;
+    outline-offset: 2px;
 }
 
 @media (max-width: 600px) {
-  .search-bar {
-    max-width: 100%;
-  }
+    .search-bar {
+        height: 38px;
+    }
+
+    .search-bar input {
+        font-size: 12px;
+    }
 }
