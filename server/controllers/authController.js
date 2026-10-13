@@ -22,14 +22,153 @@ const generateToken = (user) => {
     );
 };
 
+
 const sanitizeUser = (user) => ({
     id: user._id,
     name: user.name,
     email: user.email,
+    phone: user.phone || "",
+    address: user.address || "",
     role: user.role,
     status: user.status,
     createdAt: user.createdAt
 });
+
+const updateProfile = async (req, res) => {
+    try {
+        const { name, email, phone, address } = req.body;
+
+        if (typeof name !== "string" || typeof email !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Name and email are required."
+            });
+        }
+
+        const normalizedName = name.trim().replace(/\s+/g, " ");
+        const normalizedEmail = email.trim().toLowerCase();
+        const normalizedPhone = typeof phone === "string" ? phone.trim() : "";
+        const normalizedAddress = typeof address === "string" ? address.trim() : "";
+
+        if (normalizedName.length < 2 || normalizedName.length > 100) {
+            return res.status(400).json({
+                success: false,
+                message: "Name must be between 2 and 100 characters."
+            });
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid email address."
+            });
+        }
+
+        if (normalizedPhone.length > 25 || normalizedAddress.length > 250) {
+            return res.status(400).json({
+                success: false,
+                message: "Contact number or address exceeds the allowed length."
+            });
+        }
+
+        const user = await User.findById(req.user.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        if (user.role !== "receptionist" || user.status !== "active") {
+            return res.status(403).json({
+                success: false,
+                message: "This account cannot update its profile."
+            });
+        }
+
+        const existingUser = await User.findOne({
+            email: normalizedEmail,
+            _id: { $ne: user._id }
+        });
+
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "This email address is already used by another account."
+            });
+        }
+
+        user.name = normalizedName;
+        user.email = normalizedEmail;
+        user.phone = normalizedPhone;
+        user.address = normalizedAddress;
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully.",
+            user: sanitizeUser(user)
+        });
+    } catch (error) {
+        console.error("Update profile error:", error);
+
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "This email address is already used by another account."
+            });
+        }
+
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map((item) => item.message).join(" ")
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to update your profile."
+        });
+    }
+};
+
+
+const deleteMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        if (user.role !== "receptionist") {
+            return res.status(403).json({
+                success: false,
+                message: "Only receptionist accounts can use this action."
+            });
+        }
+
+        await User.deleteOne({ _id: user._id });
+
+        return res.status(200).json({
+            success: true,
+            message: "Account deleted successfully."
+        });
+    } catch (error) {
+        console.error("Delete account error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to delete your account."
+        });
+    }
+};
 
 const register = async (req, res) => {
     try {
@@ -333,9 +472,5 @@ const resetPassword = async (req, res) => {
     }
 };
 
-module.exports = {
-    register,
-    login,
-    getMe,
-    resetPassword
-};
+
+module.exports = { register, login, getMe, updateProfile, deleteMe, resetPassword };
