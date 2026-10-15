@@ -329,8 +329,11 @@ export default function ReservationForm() {
         if (!selectedRoom) 
             next.roomId = "Please select a room type.";
 
-        if (selectedRoomNumbers.length !== roomsNeeded) {
-            next.roomNumbers = `Please select exactly ${roomsNeeded} room(s).`;
+        const roomsBooked = Number(form.roomCount);
+
+        if (selectedRoomNumbers.length !== roomsBooked || selectedRoomNumbers.some((number) => !String(number).trim()) || new Set(selectedRoomNumbers).size !== selectedRoomNumbers.length) {
+            setError(`Please select exactly ${roomsBooked} unique room number(s).`);
+            return;
         }
 
         if (!Number(form.adults) || Number(form.adults) < 1) 
@@ -389,6 +392,7 @@ export default function ReservationForm() {
             roomType: getRoomType(selectedRoom),
             rooms: Number(form.roomCount),
             roomCount: Number(form.roomCount),
+            roomsBooked: Number(form.roomCount),
             roomNumbers: selectedRoomNumbers,
             checkIn: form.checkIn,
             checkOut: form.checkOut,
@@ -624,9 +628,15 @@ export default function ReservationForm() {
                                                                     if (previous.includes(number)) {
                                                                         return previous.filter((item) => item !== number);
                                                                     }
-                                                                    if (previous.length >= roomsNeeded) return previous;
+
+                                                                    if (previous.length >= Number(form.roomCount)) {
+                                                                        return previous;
+                                                                    }
+
                                                                     return [...previous, number];
                                                                 });
+
+                                                                setErrors((previous) => ({ ...previous, roomNumbers: "" }));
                                                             }}>
                                                             <HotelRoundedIcon />
                                                             <strong>Room {number}</strong>
@@ -637,9 +647,7 @@ export default function ReservationForm() {
                                             </div>
                                         )}
                                         {selectedRoomNumbers.length !== roomsNeeded && (
-                                            <p className="rf-room-number-hint">
-                                                Select exactly {roomsNeeded} room{roomsNeeded === 1 ? "" : "s"} to continue.
-                                            </p>
+                                            <p className="rf-room-number-hint">Select exactly {form.roomCount} room{Number(form.roomCount) === 1 ? "" : "s"} to continue.</p>
                                         )}
                                     </>
                                 )}
@@ -693,7 +701,7 @@ export default function ReservationForm() {
                                     {form.paymentType !== "Pay at Check-in" && (
                                         <div className="rf-field">
                                             <label htmlFor="amountPaid">Amount to Pay (PHP) <span className="rf-required">*</span></label>
-                                            <TextField id="amountPaid" type="number" fullWidth size="small" value={form.amountPaid} inputProps={{ min: 0, max: total, step: "0.01" }} onChange={(event) => setField("amountPaid", event.target.value)} error={Boolean(errors.amountPaid) || paymentAmountInvalid} helperText={errors.amountPaid || (paymentAmountInvalid ? "Enter a valid amount for the selected payment type." : `Total due: ${formatCurrency(total)}`)} />
+                                            <TextField id="amountPaid" type="number" fullWidth size="small" value={form.amountPaid} slotProps={{ htmlInput: { min: 0, max: total, step: "0.01" } }} onChange={(event) => setField("amountPaid", event.target.value)} error={Boolean(errors.amountPaid) || paymentAmountInvalid} helperText={errors.amountPaid || (paymentAmountInvalid ? "Enter a valid amount for the selected payment type." : `Total due: ${formatCurrency(total)}`)} />
                                         </div>
                                     )}
                                     {(form.paymentMethod === "GCash" || form.paymentMethod === "Bank Transfer") && (
@@ -759,7 +767,7 @@ export default function ReservationForm() {
                                 
                                 <div className="rf-summary-line">
                                     <span>Rooms Needed</span>
-                                    <strong>{form.roomCount}</strong>
+                                    <strong>{selectedRoomNumbers.length} of {form.roomCount}</strong>
                                 </div>
                                 
                                 <div className="rf-summary-line">

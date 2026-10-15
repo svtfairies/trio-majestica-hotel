@@ -5,18 +5,36 @@ const Room = require("../models/Room");
 
 const ACTIVE_STATUSES = ["Pending", "Confirmed", "Checked In"];
 
+
 const getErrorMessage = (error) => {
-    if (error.name === "ValidationError") {
-        return Object.values(error.errors)
+    if (error?.name === "ValidationError") {
+        return Object.values(error.errors || {})
             .map((item) => item.message)
             .join(" ");
     }
 
-    if (error.code === 11000) {
-        return "A duplicate booking reference was detected. Please try again.";
+    if (error?.name === "CastError") {
+        return `Invalid value for ${error.path}: ${error.value}.`;
     }
 
-    return "An unexpected server error occurred.";
+    if (error?.code === 11000) {
+        const field = Object.keys(error.keyPattern || {})[0];
+        return field
+            ? `A booking with this ${field} already exists. Please try again.`
+            : "A duplicate booking record was detected.";
+    }
+
+    if (error?.name === "MongoServerSelectionError") {
+        return "Unable to connect to MongoDB. Please check the database connection.";
+    }
+
+    if (error?.name === "MongoNetworkError") {
+        return "A database network error occurred. Please check the MongoDB connection.";
+    }
+
+    console.error("Unexpected booking error:", error);
+
+    return error?.message || "An unexpected server error occurred.";
 };
 
 const validateRoomAvailability = async ({
@@ -149,6 +167,7 @@ exports.getBookingById = async (req, res) => {
     }
 };
 
+
 exports.createBooking = async (req, res) => {
     try {
         const {
@@ -160,15 +179,32 @@ exports.createBooking = async (req, res) => {
             checkOut,
             adults = 1,
             children = 0,
+            roomsBooked,
+            roomCount,
+            rooms,
+            roomNumbers,
             paymentStatus = "Unpaid",
             bookingStatus = "Pending",
             specialRequests = ""
         } = req.body;
 
-        if (!guestName || !guestEmail || !guestPhone || !roomId || !checkIn || !checkOut) {
+        if (!guestName?.trim() || !guestEmail?.trim() || !guestPhone?.trim() || !roomId || !checkIn || !checkOut) {
             return res.status(400).json({
                 success: false,
                 message: "Please complete all required booking fields."
+            });
+        }
+
+        const requestedRooms = Number(
+            roomsBooked ?? roomCount ?? rooms ?? 1
+        );
+
+        const selectedRoomNumbers = Array.isArray(roomNumbers) ? roomNumbers.map((number) => String(number).trim()) : [];
+
+        if (!Number.isInteger(requestedRooms) || requestedRooms < 1 || selectedRoomNumbers.length !== requestedRooms || selectedRoomNumbers.some((number) => !number) || new Set(selectedRoomNumbers).size !== selectedRoomNumbers.length) {
+            return res.status(400).json({
+                success: false,
+                message: "Selected room numbers must match the number of rooms booked."
             });
         }
 
@@ -223,31 +259,42 @@ exports.createBooking = async (req, res) => {
         );
 
         const booking = await Booking.create({
-            guestName,
-            guestEmail,
-            guestPhone,
+            guestName: guestName.trim(),
+            guestEmail: guestEmail.trim().toLowerCase(),
+            guestPhone: guestPhone.trim(),
             room: roomId,
             checkIn: start,
             checkOut: end,
             adults: Number(adults),
             children: Number(children),
             totalNights,
-            totalAmount: totalNights * availability.room.pricePerNight,
+            totalAmount:
+                totalNights *
+                availability.room.pricePerNight *
+                requestedRooms,
             paymentStatus,
             bookingStatus,
             specialRequests,
+            roomsBooked: requestedRooms,
+            roomNumbers: selectedRoomNumbers,
             createdBy: req.user?._id || req.user?.id || null
         });
 
-        const populatedBooking = await Booking.findById(booking._id).populate("room", "name pricePerNight totalRooms status capacity");
+        const populatedBooking = await Booking.findById(booking._id)
+            .populate(
+                "room",
+                "name pricePerNight totalRooms status capacity"
+            );
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Booking created successfully.",
             booking: populatedBooking
         });
     } catch (error) {
-        res.status(400).json({
+        console.error("Create booking error:", error);
+
+        return res.status(400).json({
             success: false,
             message: getErrorMessage(error)
         });
